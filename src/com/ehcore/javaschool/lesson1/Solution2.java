@@ -1,7 +1,8 @@
 package com.ehcore.javaschool.lesson1;
 
 import java.util.Scanner;
-//for solution 2002 - not right, but work
+//for solution 2002
+// not right, but work
 public class Solution2 {
     public static void main(String[] args) {
         System.out.println("Вычисление суммы 2 чисел:");
