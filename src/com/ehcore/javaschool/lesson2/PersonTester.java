@@ -3,7 +3,7 @@ package com.ehcore.javaschool.lesson2;
 public class PersonTester {
 
     public static void main(String[] args) {
-        Person p1 = new Person(true,"Max");
+        Person p1 = new Person(true, "Max");
         Person p2 = new Person(false, "Clava");
         p1.marry(p2);
 
@@ -12,8 +12,16 @@ public class PersonTester {
 
         System.out.println("****************");
 
-        Person p3 = new Person(true,"Arnold");
+        Person p3 = new Person(true, "Arnold");
         p3.marry(p1);
+
+        System.out.println(p1);
+        System.out.println(p2);
+        System.out.println(p3);
+
+        System.out.println("****************");
+
+        p2.marry(p1);
 
         System.out.println(p1);
         System.out.println(p2);
