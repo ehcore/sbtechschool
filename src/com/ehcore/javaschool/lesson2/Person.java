@@ -1,6 +1,5 @@
 package com.ehcore.javaschool.lesson2;
 
-
 public class Person {
     private final boolean man;
     private final String name;
@@ -50,9 +49,8 @@ public class Person {
      * @return - returns true if this person has another gender than passed person and they are not husband and wife,
      * false otherwise
      */
-
     public boolean marry(Person person) {
-        if(this.spouse == person) return false;
+        if (this.spouse == person) return false;
         boolean outherIsMan = person.isMan();
         if (outherIsMan != this.man) {
             if (this.spouse != null) {
@@ -75,7 +73,6 @@ public class Person {
      *
      * @return true - if person status has been changed
      */
-
     public boolean divorce() {
         if (this.spouse != null) {
             this.spouse = null;
@@ -83,5 +80,4 @@ public class Person {
         }
         return false;
     }
-
 }
