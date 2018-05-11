@@ -1,7 +1,7 @@
 package com.ehcore.javaschool.lesson1;
 
 import java.util.Scanner;
-
+//for solution 2002
 public class Solution3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
