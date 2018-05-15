@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Solution {
 
-    ArrayList<Integer> set = new ArrayList<>();
-
+    private ArrayList<Integer> set = new ArrayList<>();
+    private int max;
 
 
 //    public Solution(int maxSize){
@@ -25,13 +25,23 @@ public class Solution {
 
         Solution s = new Solution();
 
-        String currInt = null;
+        int currInt = 0;
 
         for (int i = 0; i < count; i++) {
-                    currInt = scanner.nextLine();
-     //       numbers[i] = currInt;
-           // hashSet.add(currInt);
-            //s.add();
+
+            currInt = scanner.nextInt();
+
+            int numb = 0;
+
+            numb = scanner.nextInt();
+
+
+            switch (currInt){
+                case 1: s.add(numb);
+                        break;
+                case 2: s.remove();
+                        break;
+            }
             System.out.println(currInt);
         }
 
@@ -43,7 +53,8 @@ public class Solution {
     }
 
     void add(int x){
-        //set.add(x);
+        max = Math.max(max,x);
+        set.add(x);
     }
 
     int remove(){
