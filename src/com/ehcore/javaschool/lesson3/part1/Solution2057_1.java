@@ -3,8 +3,8 @@ package com.ehcore.javaschool.lesson3.part1;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-
-public class Solution {
+//slow solution
+public class Solution2057_1 {
 
     private ArrayList<Integer> set = new ArrayList<>();
     private int min;
@@ -12,7 +12,7 @@ public class Solution {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int count = scanner.nextInt();
-        Solution s = new Solution();
+        Solution2057_1 s = new Solution2057_1();
         int currInt = 0;
         for (int i = 0; i < count; i++) {
             currInt = scanner.nextInt();
