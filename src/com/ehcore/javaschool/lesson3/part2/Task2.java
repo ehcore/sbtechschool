@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.*;
 
 public class Task2 {
-
     public static void main(String[] args) throws IOException{
         Scanner scanner = new Scanner(new File("input.txt")).useDelimiter("[^а-яА-Яa-zA-Z0-9-]");
         Set<String> set = new HashSet<>();
