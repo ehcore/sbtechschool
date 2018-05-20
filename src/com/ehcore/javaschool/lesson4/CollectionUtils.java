@@ -16,9 +16,8 @@ public class CollectionUtils {
         return source.indexOf(t);
     }
 
-    //**
-    public static <T> List<? super T> limit(List<? extends T> source, int size){
-        return null;
+    public static <T> List<T> limit(List<T> source, int size){
+        return source.subList(0,size);
     }
 
     public static <T> void add(List<T> source, T t){
@@ -29,18 +28,22 @@ public class CollectionUtils {
         removeFrom.removeAll(c2);
     }
 
-    //**
     public static <T> boolean containsAll(List<T> c1, List<T> c2){
-        return false;
+        return c1.containsAll(c2);
     }
 
-    //**
     public static <T> boolean containsAny(List<T> c1, List<T> c2){
+        for(T t : c2){
+            if(c1.contains(t)){
+                return true;
+            }
+        }
         return false;
     }
 
     //**
     public static <T> List<T> range(List<T> list, T min, T max){
+
         return null;
     }
 
