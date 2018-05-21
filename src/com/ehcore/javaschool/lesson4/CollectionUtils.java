@@ -41,24 +41,6 @@ public class CollectionUtils {
         return false;
     }
 
-    //**
-    public static <T> List<T> range(List<T> list, T min, T max){
-        Comparator<T> comparator = new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                return 0;
-            }
-        };
-        List<T> newList = newArrayList();
-        for(T t : list){
-            if((comparator.compare(t,min) >= 0) & (comparator.compare(t,max))<=0 ){
-                newList.add(t);
-            }
-        }
-        Collections.sort(newList,comparator);
-        return newList;
-    }
-
     public static <T> List<T> range(List<T> list, T min, T max, Comparator<T> comparator){
         List<T> newList = newArrayList();
         for(T t : list){
@@ -69,4 +51,16 @@ public class CollectionUtils {
         Collections.sort(newList,comparator);
         return newList;
     }
+
+    public static <T extends Comparable<? super T>> List<T> range(List<T> list, T min, T max){
+        List<T> newList = newArrayList();
+        for(T t : list){
+            if((t.compareTo(min) >= 0) & (t.compareTo(max))<=0 ){
+                newList.add(t);
+            }
+        }
+        Collections.sort(newList);
+        return newList;
+    }
+
 }
