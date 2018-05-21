@@ -1,9 +1,6 @@
 package com.ehcore.javaschool.lesson4;
 
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class CollectionUtilsTester {
     public static void main(String[] args) {

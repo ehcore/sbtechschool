@@ -1,7 +1,6 @@
 package com.ehcore.javaschool.lesson4;
 
-
-import java.util.Map;
+import java.util.*;
 
 public interface CountMap<T> {
     // добавляет элемент в этот контейнер.

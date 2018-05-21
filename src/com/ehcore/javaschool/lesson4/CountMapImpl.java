@@ -1,6 +1,5 @@
 package com.ehcore.javaschool.lesson4;
 
-
 import java.util.*;
 
 public class CountMapImpl<T> implements CountMap<T>{

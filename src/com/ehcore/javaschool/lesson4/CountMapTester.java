@@ -1,8 +1,6 @@
 package com.ehcore.javaschool.lesson4;
 
-
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class CountMapTester {
     public static void main(String[] args) {
@@ -52,6 +50,5 @@ public class CountMapTester {
         map.toMap(newNewMap);
 
         System.out.println("Содержание нового отображения (не CountMapImpl) и копирование в него первого отображения:" + newNewMap);
-
     }
 }
