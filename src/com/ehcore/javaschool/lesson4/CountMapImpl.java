@@ -17,12 +17,20 @@ public class CountMapImpl<T> implements CountMap<T>{
 
     @Override
     public int getCount(T t) {
-        return map.get(t);
+        try {
+            return map.get(t);
+        }catch(NullPointerException e){
+            return 0;
+        }
     }
 
     @Override
     public int remove(T t) {
-        return map.remove(t);
+        try {
+            return map.remove(t);
+        }catch (NullPointerException e){
+            return 0;
+        }
     }
 
     @Override
@@ -36,9 +44,9 @@ public class CountMapImpl<T> implements CountMap<T>{
         for(Map.Entry<T,Integer> e : tempMap.entrySet()){
             T key = e.getKey();
             if(!map.containsKey(key)){
-                map.put(key,1);
+                map.put(key,e.getValue());
             }else{
-                map.put(key,map.get(key) + 1);
+                map.put(key,map.get(key) + e.getValue());
             }
         }
     }
@@ -50,6 +58,6 @@ public class CountMapImpl<T> implements CountMap<T>{
 
     @Override
     public void toMap(Map<T, Integer> destination) {
-        destination = map;
+        destination.putAll(map);
     }
 }

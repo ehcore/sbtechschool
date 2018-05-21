@@ -62,5 +62,4 @@ public class CollectionUtils {
         Collections.sort(newList);
         return newList;
     }
-
 }
