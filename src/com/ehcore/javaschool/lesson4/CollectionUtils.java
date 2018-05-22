@@ -12,7 +12,7 @@ public class CollectionUtils {
         return new ArrayList<T>();
     }
 
-    public static <T> int indexOf(List<T> source, T t){
+    public static <T> int indexOf(List<? extends T> source, T t){
         return source.indexOf(t);
     }
 
@@ -24,15 +24,15 @@ public class CollectionUtils {
         source.add(t);
     }
 
-    public static <T> void removeAll(List<T> removeFrom, List<T> c2){
+    public static <T> void removeAll(List<? super T> removeFrom, List<? extends T> c2){
         removeFrom.removeAll(c2);
     }
 
-    public static <T> boolean containsAll(List<T> c1, List<T> c2){
+    public static <T> boolean containsAll(List<? extends T> c1, List<? extends T> c2){
         return c1.containsAll(c2);
     }
 
-    public static <T> boolean containsAny(List<T> c1, List<T> c2){
+    public static <T> boolean containsAny(List<? extends T> c1, List<? extends T> c2){
         for(T t : c2){
             if(c1.contains(t)){
                 return true;
@@ -41,7 +41,7 @@ public class CollectionUtils {
         return false;
     }
 
-    public static <T> List<T> range(List<T> list, T min, T max, Comparator<T> comparator){
+    public static <T> List<T> range(List<? extends T> list, T min, T max, Comparator<T> comparator){
         List<T> newList = newArrayList();
         for(T t : list){
             if((comparator.compare(t,min) >= 0) & (comparator.compare(t,max))<=0 ){
@@ -52,7 +52,7 @@ public class CollectionUtils {
         return newList;
     }
 
-    public static <T extends Comparable<? super T>> List<T> range(List<T> list, T min, T max){
+    public static <T extends Comparable<? super T>> List<T> range(List<? extends T> list, T min, T max){
         List<T> newList = newArrayList();
         for(T t : list){
             if((t.compareTo(min) >= 0) & (t.compareTo(max))<=0 ){
