@@ -12,7 +12,9 @@ public class Main {
         while (true) {
             System.out.println("Введите пин-код:");
             Scanner scanner = new Scanner(System.in);
-
+            //***перенести в TerminalImpl
+            //***получать из сканера строку, а парсить ее уже там
+            //***в случае, если что-то пойдет не так там это и обработать
             Integer pin = Integer.valueOf(scanner.nextLine());
             System.out.println(pin);
             try {
