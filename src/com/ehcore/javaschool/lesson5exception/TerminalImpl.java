@@ -20,14 +20,14 @@ public class TerminalImpl implements Terminal{
 
     @Override
     public void putMoney(int x) throws IncorrectNumberException {
-        while(true) {
-            try {
+//        while(true) {
+//            try {
                 this.connectServer();
-                break;
-            } catch (ConnectException exc) {
-                System.out.println(exc.getMessage());
-            }
-        }
+//                break;
+//            } catch (ConnectException exc) {
+//                System.err.println(exc.getMessage());
+//            }
+//        }
 
         if((x % 100) != 0 ){
             throw new IncorrectNumberException();
@@ -40,10 +40,15 @@ public class TerminalImpl implements Terminal{
     }
 
     @Override
-    public void connectServer() throws ConnectException {
-        long rand = System.currentTimeMillis();
-        if((rand % 2) != 0){
-            throw new ConnectException();
+    public void connectServer() /*throws ConnectException*/ {
+        try {
+            server.connect();
+        } catch (ConnectException exc) {
+            System.err.println(exc.getMessage());
         }
+//        long rand = System.currentTimeMillis();
+//        if((rand % 2) != 0){
+//            throw new ConnectException();
+//        }
     }
 }
