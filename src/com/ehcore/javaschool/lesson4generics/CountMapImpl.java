@@ -16,18 +16,18 @@ public class CountMapImpl<T> implements CountMap<T>{
 
     @Override
     public int getCount(T t) {
-        try {
+        if(map.containsKey(t)) {
             return map.get(t);
-        }catch(NullPointerException e){
+        }else{
             return 0;
         }
     }
 
     @Override
     public int remove(T t) {
-        try {
+        if(map.containsKey(t)) {
             return map.remove(t);
-        }catch (NullPointerException e){
+        }else{
             return 0;
         }
     }

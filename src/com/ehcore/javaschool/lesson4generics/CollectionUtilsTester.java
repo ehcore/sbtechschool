@@ -59,7 +59,7 @@ public class CollectionUtilsTester {
         System.out.println("Содержание всех элементов списка в новом списке :" + CollectionUtils.containsAll(newIntegerList,integerList));
         System.out.println("Содержание любого из элементов списка в новом списке :" + CollectionUtils.containsAny(newIntegerList,integerList));
 
-        int idx = 6;
+        int idx = 142124;
 
         System.out.println("Индекс элемента " + idx + " в списке :" + CollectionUtils.indexOf(newIntegerList,idx));
 
