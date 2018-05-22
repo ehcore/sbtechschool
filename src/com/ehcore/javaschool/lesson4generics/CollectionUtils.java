@@ -1,4 +1,4 @@
-package com.ehcore.javaschool.lesson4;
+package com.ehcore.javaschool.lesson4generics;
 
 import java.util.*;
 

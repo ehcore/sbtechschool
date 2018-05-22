@@ -1,4 +1,4 @@
-package com.ehcore.javaschool.lesson3.part1;
+package com.ehcore.javaschool.lesson3collections.part1;
 
 import java.util.Scanner;
 import java.util.TreeMap;

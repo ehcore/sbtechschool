@@ -1,4 +1,4 @@
-package com.ehcore.javaschool.lesson3.part2;
+package com.ehcore.javaschool.lesson3collections.part2;
 
 
 import java.io.*;
