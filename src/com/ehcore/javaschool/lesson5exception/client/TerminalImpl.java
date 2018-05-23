@@ -48,7 +48,7 @@ public class TerminalImpl implements Terminal {
                 System.out.println(exc.getMessage());
             }
             count++;
-            if ((count % 3) == 0) {
+            if (((count % 3) == 0) & (count > 0)) {
                 service.lock();
             }
         }
@@ -97,7 +97,7 @@ public class TerminalImpl implements Terminal {
                 System.out.println(exc.getMessage());
             }
             count++;
-            if ((count % 3) == 0) {
+            if (((count % 3) == 0) & (count > 0)) {
                 service.lock();
             }
         }
