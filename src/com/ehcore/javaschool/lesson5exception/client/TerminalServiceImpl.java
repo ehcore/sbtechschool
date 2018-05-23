@@ -89,12 +89,12 @@ public class TerminalServiceImpl implements TerminalService {
                     Scanner scanner = new Scanner(System.in);
                     int numOper = scanner.nextInt();
                     if ((numOper < 1) || (numOper > 3)) {
-                        throw new NoSuchOperation();
+                        throw new NoSuchOperationException();
                     }
 
                     return numOper;
 
-                } catch (NoSuchOperation exc) {
+                } catch (NoSuchOperationException exc) {
                     System.out.println(exc.getMessage());
                 }
             }
