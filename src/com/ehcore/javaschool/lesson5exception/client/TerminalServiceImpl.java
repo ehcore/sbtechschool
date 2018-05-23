@@ -2,9 +2,10 @@ package com.ehcore.javaschool.lesson5exception.client;
 
 import com.ehcore.javaschool.lesson5exception.exceptions.*;
 import com.ehcore.javaschool.lesson5exception.server.*;
+
 import java.util.*;
 
-public class TerminalServiceImpl implements TerminalService{
+public class TerminalServiceImpl implements TerminalService {
     private TerminalServer server;
 
     public TerminalServiceImpl() {
@@ -12,29 +13,29 @@ public class TerminalServiceImpl implements TerminalService{
     }
 
     @Override
-    public void putMoney(Integer pinCode, int x) throws IncorrectNumberException,ConnectException {
-        if((x % 100) != 0 ){
+    public void putMoney(Integer pinCode, int x) throws IncorrectNumberException, ConnectException {
+        if ((x % 100) != 0) {
             throw new IncorrectNumberException();
         }
-        try{
+        try {
             connectServer();
-            server.putMoney(pinCode,x);
-        }catch (ConnectException exc) {
+            server.putMoney(pinCode, x);
+        } catch (ConnectException exc) {
             throw new ConnectException();
         }
     }
 
     @Override
-    public void getMoney(Integer pinCode,int x) throws IncorrectNumberException,ConnectException,
-            NotEnoughMoneyException{
+    public void getMoney(Integer pinCode, int x) throws IncorrectNumberException, ConnectException,
+            NotEnoughMoneyException {
 
-        if((x % 100) != 0 ){
+        if ((x % 100) != 0) {
             throw new IncorrectNumberException();
         }
-        try{
+        try {
             connectServer();
-            server.getMoney(pinCode,x);
-        }catch (ConnectException exc) {
+            server.getMoney(pinCode, x);
+        } catch (ConnectException exc) {
             throw new ConnectException();
         }
 
@@ -43,20 +44,20 @@ public class TerminalServiceImpl implements TerminalService{
     @Override
     public void connectServer() throws ConnectException {
         long rand = System.currentTimeMillis();
-        if((rand % 2) != 0){
+        if ((rand % 9) == 0) {
             throw new ConnectException();
         }
     }
 
     @Override
-    public void checkPin(Integer pin) throws ConnectException,NoSuchAccountException{
-        try{
+    public void checkPin(Integer pin) throws ConnectException, NoSuchPinCodeException {
+        try {
             connectServer();
             server.validatePin(pin);
-        }catch (ConnectException exc) {
+        } catch (ConnectException exc) {
             throw new ConnectException();
-        }catch (NoSuchAccountException exc){
-            throw new NoSuchAccountException();
+        } catch (NoSuchPinCodeException exc) {
+            throw new NoSuchPinCodeException();
         }
     }
 
@@ -64,9 +65,9 @@ public class TerminalServiceImpl implements TerminalService{
     public void lock() {
         try {
             throw new AccountIsLockedException();
-        }catch (AccountIsLockedException exc){
+        } catch (AccountIsLockedException exc) {
             System.out.println(exc.getMessage());
-            try{
+            try {
                 Thread.sleep(5000);
             } catch (InterruptedException exc2) {
                 System.out.println(exc2.getMessage());
@@ -75,9 +76,9 @@ public class TerminalServiceImpl implements TerminalService{
     }
 
     @Override
-    public int getOperation() throws ConnectException{
-        try{
-            while(true) {
+    public int getOperation() throws ConnectException {
+        try {
+            while (true) {
                 connectServer();
                 try {
                     System.out.println("Доступные операции:");
@@ -93,12 +94,11 @@ public class TerminalServiceImpl implements TerminalService{
 
                     return numOper;
 
-                   // break;
                 } catch (NoSuchOperation exc) {
                     System.out.println(exc.getMessage());
                 }
             }
-        }catch (ConnectException exc) {
+        } catch (ConnectException exc) {
             throw new ConnectException();
         }
 
