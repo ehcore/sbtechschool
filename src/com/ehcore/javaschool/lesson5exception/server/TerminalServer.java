@@ -7,5 +7,7 @@ public interface TerminalServer {
 
     void getMoney(Integer pinCode, int x) throws NotEnoughMoneyException;
 
+    int checkMoney(Integer pinCode);
+
     void validatePin(Integer x) throws NoSuchPinCodeException;
 }

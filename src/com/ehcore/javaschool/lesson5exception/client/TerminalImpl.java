@@ -36,6 +36,9 @@ public class TerminalImpl implements Terminal {
                             getMoney();
                             break;
                         case 3:
+                            checkMoney();
+                            break;
+                        case 4:
                             return;
                     }
                 }
@@ -81,6 +84,11 @@ public class TerminalImpl implements Terminal {
             }
         }
 
+    }
+
+    private void checkMoney() throws ConnectException {
+        int x = service.checkMoney(pinCode);
+        System.out.println("Наличие денег на счете:" + x);
     }
 
     private String getPin() {

@@ -17,7 +17,6 @@ public class TerminalServerImpl implements TerminalServer {
     @Override
     public void putMoney(Integer pinCode, int x) {
         map.put(pinCode, map.get(pinCode) + x);
-        System.out.println(map);
     }
 
     @Override
@@ -26,7 +25,11 @@ public class TerminalServerImpl implements TerminalServer {
             throw new NotEnoughMoneyException();
         }
         map.put(pinCode, map.get(pinCode) - x);
-        System.out.println(map);
+    }
+
+    @Override
+    public int checkMoney(Integer pinCode) {
+        return map.get(pinCode);
     }
 
     @Override
