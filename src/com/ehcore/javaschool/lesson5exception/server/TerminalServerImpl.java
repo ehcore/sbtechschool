@@ -13,13 +13,18 @@ public class TerminalServerImpl implements TerminalServer{
     }
 
     @Override
-    public void putMoney(int x) {
-
+    public void putMoney(Integer pinCode,int x) {
+        map.put(pinCode,map.get(pinCode) + x);
+        System.out.println(map);
     }
 
     @Override
-    public void getMoney(int x) {
-
+    public void getMoney(Integer pinCode,int x) throws NotEnoughMoneyException{
+        if(map.get(pinCode) < x){
+            throw new NotEnoughMoneyException();
+        }
+        map.put(pinCode,map.get(pinCode) - x);
+        System.out.println(map);
     }
 
     @Override

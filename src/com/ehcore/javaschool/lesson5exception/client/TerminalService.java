@@ -3,9 +3,10 @@ package com.ehcore.javaschool.lesson5exception.client;
 import com.ehcore.javaschool.lesson5exception.exceptions.*;
 
 public interface TerminalService {
-    void putMoney(int x) throws IncorrectNumberException;
-    void getMoney(int x) throws IncorrectNumberException,NotEnoughMoneyException;
-    void connectServer() throws ConnectException; //or checkConnect();
+    void putMoney(Integer pinCode,int x) throws IncorrectNumberException,ConnectException;
+    void getMoney(Integer pinCode,int x) throws IncorrectNumberException,ConnectException,NotEnoughMoneyException;
+    void connectServer() throws ConnectException;
     void checkPin(Integer pin) throws ConnectException,NoSuchAccountException;
+    int getOperation() throws ConnectException;
     void lock();
 }
