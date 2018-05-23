@@ -87,13 +87,16 @@ public class TerminalServiceImpl implements TerminalService {
                     System.out.println("3.Выход");
                     System.out.println("Введите номер операции:");
                     Scanner scanner = new Scanner(System.in);
-                    int numOper = scanner.nextInt();
+                    int numOper = 0;
+                    try {
+                        numOper = scanner.nextInt();
+                    }catch (InputMismatchException exc){
+                        throw new NoSuchOperationException();
+                    }
                     if ((numOper < 1) || (numOper > 3)) {
                         throw new NoSuchOperationException();
                     }
-
                     return numOper;
-
                 } catch (NoSuchOperationException exc) {
                     System.out.println(exc.getMessage());
                 }
