@@ -5,7 +5,7 @@ import com.ehcore.javaschool.lesson5exception.exceptions.*;
 import java.util.*;
 
 public class TerminalServerImpl implements TerminalServer {
-    Map<Integer, Integer> map = new HashMap<>();
+    private Map<Integer, Integer> map = new HashMap<>();
 
     {
         map.put(1234, 100);
