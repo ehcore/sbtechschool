@@ -17,38 +17,24 @@ public class TerminalServiceImpl implements TerminalService {
         if ((x % 100) != 0) {
             throw new IncorrectNumberException();
         }
-        try {
-            connectServer();
-            server.putMoney(pinCode, x);
-        } catch (ConnectException exc) {
-            throw new ConnectException();
-        }
+        connectServer();
+        server.putMoney(pinCode, x);
     }
 
     @Override
     public void getMoney(Integer pinCode, int x) throws IncorrectNumberException, ConnectException,
             NotEnoughMoneyException {
-
         if ((x % 100) != 0) {
             throw new IncorrectNumberException();
         }
-        try {
-            connectServer();
-            server.getMoney(pinCode, x);
-        } catch (ConnectException exc) {
-            throw new ConnectException();
-        }
-
+        connectServer();
+        server.getMoney(pinCode, x);
     }
 
     @Override
     public int checkMoney(Integer pinCode) throws ConnectException {
-        try {
-            connectServer();
-            return server.checkMoney(pinCode);
-        } catch (ConnectException exc) {
-            throw new ConnectException();
-        }
+        connectServer();
+        return server.checkMoney(pinCode);
     }
 
     @Override
@@ -61,14 +47,8 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public void checkPin(Integer pin) throws ConnectException, NoSuchPinCodeException {
-        try {
-            connectServer();
-            server.validatePin(pin);
-        } catch (ConnectException exc) {
-            throw new ConnectException();
-        } catch (NoSuchPinCodeException exc) {
-            throw new NoSuchPinCodeException();
-        }
+        connectServer();
+        server.validatePin(pin);
     }
 
     @Override
@@ -87,34 +67,29 @@ public class TerminalServiceImpl implements TerminalService {
 
     @Override
     public int getOperation() throws ConnectException {
-        try {
-            while (true) {
-                connectServer();
+        while (true) {
+            connectServer();
+            try {
+                System.out.println("Доступные операции:");
+                System.out.println("1.Внести деньги");
+                System.out.println("2.Снять деньги");
+                System.out.println("3.Проверить состояние счета");
+                System.out.println("4.Выход");
+                System.out.println("Введите номер операции:");
+                Scanner scanner = new Scanner(System.in);
+                int numOper = 0;
                 try {
-                    System.out.println("Доступные операции:");
-                    System.out.println("1.Внести деньги");
-                    System.out.println("2.Снять деньги");
-                    System.out.println("3.Проверить состояние счета");
-                    System.out.println("4.Выход");
-                    System.out.println("Введите номер операции:");
-                    Scanner scanner = new Scanner(System.in);
-                    int numOper = 0;
-                    try {
-                        numOper = scanner.nextInt();
-                    }catch (InputMismatchException exc){
-                        throw new NoSuchOperationException();
-                    }
-                    if ((numOper < 1) || (numOper > 4)) {
-                        throw new NoSuchOperationException();
-                    }
-                    return numOper;
-                } catch (NoSuchOperationException exc) {
-                    System.out.println(exc.getMessage());
+                    numOper = scanner.nextInt();
+                }catch (InputMismatchException exc){
+                    throw new NoSuchOperationException();
                 }
+                if ((numOper < 1) || (numOper > 4)) {
+                    throw new NoSuchOperationException();
+                }
+                return numOper;
+            } catch (NoSuchOperationException exc) {
+                System.out.println(exc.getMessage());
             }
-        } catch (ConnectException exc) {
-            throw new ConnectException();
         }
-
     }
 }
