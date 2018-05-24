@@ -1,7 +1,6 @@
 package com.ehcore.javaschool.lesson5exception.client;
 
 import com.ehcore.javaschool.lesson5exception.exceptions.*;
-
 import java.util.*;
 
 public class TerminalImpl implements Terminal {

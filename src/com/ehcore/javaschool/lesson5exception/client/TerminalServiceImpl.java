@@ -3,8 +3,6 @@ package com.ehcore.javaschool.lesson5exception.client;
 import com.ehcore.javaschool.lesson5exception.exceptions.*;
 import com.ehcore.javaschool.lesson5exception.server.*;
 
-//import java.util.*;
-
 public class TerminalServiceImpl implements TerminalService {
     private TerminalServer server;
 
