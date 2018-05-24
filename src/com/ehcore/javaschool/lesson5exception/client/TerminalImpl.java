@@ -43,7 +43,7 @@ public class TerminalImpl implements Terminal {
                     }
                 }
             } catch (ConnectException exc) {
-                count = -1;//**потому как дальше он увеличивается на 1, а нам в данной итерации нужен 0 для текущей ситуации
+                count = -1;
                 this.pinCode = null;
                 System.out.println(exc.getMessage());
             } catch (NoSuchPinCodeException exc) {
