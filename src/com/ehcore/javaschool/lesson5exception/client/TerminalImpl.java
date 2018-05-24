@@ -60,8 +60,13 @@ public class TerminalImpl implements Terminal {
         while (true) {
             System.out.println("Введите сумму, которую хотите внести (сумма должна быть кратной 100):");
             Scanner scanner = new Scanner(System.in);
-            int x = scanner.nextInt();
+            int x = 0;
             try {
+                try {
+                    x = scanner.nextInt();
+                }catch (InputMismatchException exc){
+                    throw new IncorrectNumberException();
+                }
                 service.putMoney(pinCode, x);
                 break;
             } catch (IncorrectNumberException exc) {
@@ -74,8 +79,13 @@ public class TerminalImpl implements Terminal {
         while (true) {
             System.out.println("Введите сумму, которую хотите снять (сумма должна быть кратной 100):");
             Scanner scanner = new Scanner(System.in);
-            int x = scanner.nextInt();
+            int x = 0;
             try {
+                try {
+                    x = scanner.nextInt();
+                }catch (InputMismatchException exc){
+                    throw new IncorrectNumberException();
+                }
                 service.getMoney(pinCode, x);
                 break;
             } catch (IncorrectNumberException | NotEnoughMoneyException exc) {
