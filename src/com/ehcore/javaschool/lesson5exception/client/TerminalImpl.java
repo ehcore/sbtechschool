@@ -27,7 +27,7 @@ public class TerminalImpl implements Terminal {
                 service.checkPin(pin);
                 this.pinCode = pin;
                 while (true) {
-                    int numOper = service.getOperation();
+                    int numOper = getOperation();
                     switch (numOper) {
                         case 1:
                             putMoney();
@@ -120,6 +120,32 @@ public class TerminalImpl implements Terminal {
             Integer.parseInt(pin);
         } catch (NumberFormatException exc) {
             throw new IncorrectPinException();
+        }
+    }
+
+    public int getOperation() {
+        while (true) {
+            try {
+                System.out.println("Доступные операции:");
+                System.out.println("1.Внести деньги");
+                System.out.println("2.Снять деньги");
+                System.out.println("3.Проверить состояние счета");
+                System.out.println("4.Выход");
+                System.out.println("Введите номер операции:");
+                Scanner scanner = new Scanner(System.in);
+                int numOper = 0;
+                try {
+                    numOper = scanner.nextInt();
+                }catch (InputMismatchException exc){
+                    throw new NoSuchOperationException();
+                }
+                if ((numOper < 1) || (numOper > 4)) {
+                    throw new NoSuchOperationException();
+                }
+                return numOper;
+            } catch (NoSuchOperationException exc) {
+                System.out.println(exc.getMessage());
+            }
         }
     }
 }

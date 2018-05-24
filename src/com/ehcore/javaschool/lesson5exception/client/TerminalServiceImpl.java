@@ -3,7 +3,7 @@ package com.ehcore.javaschool.lesson5exception.client;
 import com.ehcore.javaschool.lesson5exception.exceptions.*;
 import com.ehcore.javaschool.lesson5exception.server.*;
 
-import java.util.*;
+//import java.util.*;
 
 public class TerminalServiceImpl implements TerminalService {
     private TerminalServer server;
@@ -61,34 +61,6 @@ public class TerminalServiceImpl implements TerminalService {
                 Thread.sleep(5000);
             } catch (InterruptedException exc2) {
                 System.out.println(exc2.getMessage());
-            }
-        }
-    }
-
-    @Override
-    public int getOperation() throws ConnectException {
-        while (true) {
-            connectServer();
-            try {
-                System.out.println("Доступные операции:");
-                System.out.println("1.Внести деньги");
-                System.out.println("2.Снять деньги");
-                System.out.println("3.Проверить состояние счета");
-                System.out.println("4.Выход");
-                System.out.println("Введите номер операции:");
-                Scanner scanner = new Scanner(System.in);
-                int numOper = 0;
-                try {
-                    numOper = scanner.nextInt();
-                }catch (InputMismatchException exc){
-                    throw new NoSuchOperationException();
-                }
-                if ((numOper < 1) || (numOper > 4)) {
-                    throw new NoSuchOperationException();
-                }
-                return numOper;
-            } catch (NoSuchOperationException exc) {
-                System.out.println(exc.getMessage());
             }
         }
     }

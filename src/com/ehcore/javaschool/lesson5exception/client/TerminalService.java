@@ -13,7 +13,5 @@ public interface TerminalService {
 
     void checkPin(Integer pin) throws ConnectException, NoSuchPinCodeException;
 
-    int getOperation() throws ConnectException;
-
     void lock();
 }
