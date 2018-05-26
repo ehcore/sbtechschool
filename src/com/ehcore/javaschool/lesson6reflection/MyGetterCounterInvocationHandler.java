@@ -14,6 +14,7 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        method.invoke(delegate,args);
         return null;
     }
 
@@ -38,7 +39,7 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
     /**
      * Кладет кэшированый результат, в файл cache.properties
      * @param simpleNameClass принимает простое(без имени пакета) имя класса
-     * @param count количество геттеров в данном классе00
+     * @param count количество геттеров в данном классе
      */
     private void putCacheResult(String simpleNameClass,int count){
         Properties prop = new Properties();
