@@ -14,8 +14,14 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        method.invoke(delegate,args);
-        return null;
+        String simpleName = ((Class)args[0]).getSimpleName();
+        int count = getCacheResult(simpleName);
+        if(count == -1){
+            count = (int)method.invoke(delegate,args);
+            putCacheResult(simpleName,count);
+            return count;
+        }
+        return count;
     }
 
      /**
@@ -27,9 +33,16 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
      */
     private int getCacheResult(String simpleNameClass) {
         Properties prop = new Properties();
-        try(InputStream in = new FileInputStream("cache.properties")){
+        try(InputStream in = new FileInputStream("cache.properties")){//){
             prop.load(in);
-            if(prop.containsKey(simpleNameClass)) return (int) prop.get(simpleNameClass);
+            if(prop.containsKey(simpleNameClass)){
+                try {
+                    Integer result = Integer.parseInt((String) prop.get(simpleNameClass));
+                    return result;
+                }catch (NumberFormatException exc2){
+                    return -1;
+                }
+            }
         }catch (IOException exc){
             exc.printStackTrace();
         }
@@ -43,9 +56,11 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
      */
     private void putCacheResult(String simpleNameClass,int count){
         Properties prop = new Properties();
-        try(InputStream in = new FileInputStream("cache.properties")){
-            prop.load(in);
-            prop.put(simpleNameClass,count);
+        try(OutputStream out = new FileOutputStream("cache.properties")){
+            prop.store(out,"");
+            prop.put(simpleNameClass,""+count);
+
+            prop.store(out,"");
         }catch (IOException exc){
             exc.printStackTrace();
         }
