@@ -33,7 +33,7 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
      */
     private int getCacheResult(String simpleNameClass) {
         Properties prop = new Properties();
-        try(InputStream in = new FileInputStream("cache.properties")){//){
+        try(InputStream in = new FileInputStream(new File("cache.properties"))){//){
             prop.load(in);
             if(prop.containsKey(simpleNameClass)){
                 try {
@@ -56,7 +56,7 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
      */
     private void putCacheResult(String simpleNameClass,int count){
         Properties prop = new Properties();
-        try(OutputStream out = new FileOutputStream("cache.properties")){
+        try(OutputStream out = new FileOutputStream(new File("cache.properties"))){
             prop.store(out,"");
             prop.put(simpleNameClass,""+count);
 
