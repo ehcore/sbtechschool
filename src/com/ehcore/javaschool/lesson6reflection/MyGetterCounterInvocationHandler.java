@@ -57,7 +57,7 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
      */
     private void putCacheResult(String simpleNameClass,int count){
         Properties prop = new Properties();
-        try(OutputStream out = new FileOutputStream(new File("cache.properties"))){
+        try(OutputStream out = new FileOutputStream(new File("cache.properties"),true)){
             prop.store(out,"");
             prop.put(simpleNameClass,""+count);
 
