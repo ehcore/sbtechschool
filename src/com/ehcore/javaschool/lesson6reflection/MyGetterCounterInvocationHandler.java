@@ -25,11 +25,11 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
     }
 
      /**
-     * Возвращает кэшированый результат,
-     * в случае, если по переданному аргументу нет
-     * значения, возвращает -1
-     * @param simpleNameClass принимает простое(без имени пакета) имя класса
-     * @return возвращает количество методов геттеров в переданном классе
+     * Возвращает кэшированый результат, сохраненный в файле.
+     * В случае, если по переданному имени класса нет
+     * значения, возвращает -1.
+     * @param simpleNameClass простое(без имени пакета) имя класса
+     * @return количество методов геттеров в переданном классе
      */
     private int getCacheResult(String simpleNameClass) {
         Properties prop = new Properties();
@@ -50,8 +50,9 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
     }
 
     /**
-     * Кладет кэшированый результат, в файл cache.properties
-     * @param simpleNameClass принимает простое(без имени пакета) имя класса
+     * Сохраняет кэшированый результат в файл cache.properties.
+     * Если файла нет, он создается.
+     * @param simpleNameClass простое(без имени пакета) имя класса
      * @param count количество геттеров в данном классе
      */
     private void putCacheResult(String simpleNameClass,int count){
@@ -64,6 +65,5 @@ public class MyGetterCounterInvocationHandler implements InvocationHandler{
         }catch (IOException exc){
             exc.printStackTrace();
         }
-
     }
 }
