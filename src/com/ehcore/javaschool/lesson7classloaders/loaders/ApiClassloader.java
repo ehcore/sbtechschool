@@ -36,7 +36,8 @@ public class ApiClassloader extends ClassLoader{
             Class<?> clazz = defineClass(name,bytes,0,bytes.length);
             return clazz;
         }catch (IOException exc){
-            return super.findSystemClass(name);
+            throw new ClassNotFoundException();
+           // return super.findSystemClass(name);
         }
     }
 }
