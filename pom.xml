@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ehcore.javaschool</groupId>
+    <artifactId>javaschool-projects</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>lesson1-introduction</module>
+        <module>lesson2-classes-packages</module>
+        <module>lesson3-collections</module>
+        <module>lesson4-generics</module>
+        <module>lesson5-exceptions</module>
+        <module>lesson6-reflection</module>
+        <module>lesson7-classloaders</module>
+        <module>lesson8-buildtools-junit</module>
+        <!--<module>client</module>-->
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.4.0.905</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
