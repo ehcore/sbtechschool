@@ -1,5 +1,3 @@
-import examples.Skip;
-
 import java.lang.reflect.*;
 
 public class GetterCounterImpl implements GetterCounter {
