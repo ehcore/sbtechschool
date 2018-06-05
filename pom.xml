@@ -7,6 +7,7 @@
     <groupId>com.ehcore.javaschool</groupId>
     <artifactId>javaschool-projects</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>lesson1-introduction</module>
@@ -17,7 +18,8 @@
         <module>lesson6-reflection</module>
         <module>lesson7-classloaders</module>
         <module>lesson8-buildtools-junit</module>
-        <!--<module>client</module>-->
+        <module>lesson9-serialization</module>
+
     </modules>
 
     <build>
