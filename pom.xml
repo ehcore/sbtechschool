@@ -19,6 +19,7 @@
         <module>lesson7-classloaders</module>
         <module>lesson8-buildtools-junit</module>
         <module>lesson9-serialization</module>
+        <module>lesson10-java8-lambda-streamapi</module>
 
     </modules>
 
