@@ -4,6 +4,12 @@ package part2;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Выведите на экран список различных слов файла, отсортированный по возрастанию их длины
+ * (компаратор сначала по длине слова, потом по тексту).
+ *
+ */
+
 public class Task2 {
     public static void main(String[] args) throws IOException{
         Scanner scanner = new Scanner(new File("input.txt")).useDelimiter("[^а-яА-Яa-zA-Z0-9-]");

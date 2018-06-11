@@ -4,6 +4,11 @@ package part2;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Реализуйте свой Iterator для обхода списка в обратном порядке.
+ *
+ */
+
 public class Task5 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(new File("input.txt")).useDelimiter("[^а-яА-Яa-zA-Z0-9-]");

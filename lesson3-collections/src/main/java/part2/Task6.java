@@ -3,6 +3,12 @@ package part2;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Выведите на экран строки,
+ * номера которых задаются пользователем в произвольном порядке.
+ *
+ */
+
 public class Task6 {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(new File("input.txt")).useDelimiter("\n");
