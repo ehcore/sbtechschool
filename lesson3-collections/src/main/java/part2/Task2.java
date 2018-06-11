@@ -1,6 +1,5 @@
 package part2;
 
-
 import java.io.*;
 import java.util.*;
 
@@ -72,5 +71,4 @@ class Word{
             return comp;
         }
     }
-
 }

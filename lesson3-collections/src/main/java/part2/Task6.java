@@ -28,7 +28,7 @@ public class Task6 {
         if(numLine >= 0  & numLine < count ) {
             System.out.println(list.get(numLine));
         } else {
-            System.out.println("Введен недопустимый номер строки");
+            System.out.println("Введен недопустимый номер строки ");
         }
     }
 }
