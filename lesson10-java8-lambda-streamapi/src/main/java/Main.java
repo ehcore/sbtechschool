@@ -1,3 +1,4 @@
+
 import java.util.Arrays;
 
 public class Main {
@@ -5,5 +6,6 @@ public class Main {
         Arrays.asList("aa","bb","cc").stream()
                 .filter(s -> "cc".equals(s))
                 .forEach(System.out::println);
+
     }
 }
