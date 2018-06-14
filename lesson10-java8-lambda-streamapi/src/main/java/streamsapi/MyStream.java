@@ -5,49 +5,76 @@ import java.util.function.*;
 
 /**
  * Пока сырой код, все плохо и ничего не работает
- * @param <T> - даже и не известно, что здесь будет
+ * @param <T>
  */
 
-public class   MyStream<T> {
+public class   MyStream<T,R> {
     private List<T> collection;
-    private Queue<Process> queueTasks = new LinkedList<>();
+    private List<T> tempCollection = new ArrayList<>();
+    private List<T> resultCollection = new ArrayList<>();
+    private List<Process> queueTasks = new ArrayList<>();
 
     MyStream(List<T> collection){
         this.collection = collection;
     }
 
     static <T> MyStream of(List<T> collection){
-        List<T> newCollection = new ArrayList();
-        newCollection.addAll(collection);
-        return new MyStream(newCollection);
+        return new MyStream(collection);
     }
 
-    MyStream filter(Predicate predicate){
-        Filter filter = new Filter();
+    MyStream filter(Predicate<T> predicate){
+        Filter filter = new Filter(predicate);
         queueTasks.add(filter);
         return this;
     }
 
-    List<T> collect(){
-        for(Process task: queueTasks){
-            task.doWork();
-        }
-        return collection;
+    MyStream transform(Function<T,R> function){
+        Transform transform = new Transform(function);
+        queueTasks.add(transform);
+        return this;
     }
 
-    private class Filter implements Process{
-        @Override
-        public void doWork() {
 
+    List<T> collect(){
+        for(T t:collection){
+            for(Process task: queueTasks){
+                task.doWork(t);
+            }
+        }
+        return resultCollection;
+    }
+
+    private class Filter implements Process<T>{
+        Predicate<T> predicate;
+        Filter(Predicate<T> predicate){
+            this.predicate = predicate;
+        }
+        @Override
+        public void doWork(T t) {
+            if(predicate.test(t)){
+                resultCollection.add(t);
+            }
+        }
+    }
+
+    private class Transform implements Process<T>{
+        Function<T,R> function;
+        Transform(Function<T,R> function){
+            this.function = function;
+        }
+
+        @Override
+        public void doWork(T t) {
+            if(resultCollection.contains(t)){
+                int index = resultCollection.indexOf(t);
+                T elem = resultCollection.get(index);
+                T result = (T)function.apply(elem);
+                resultCollection.set(index, result);
+            }
         }
     }
 
     /*
-    static MyStream of(Collection collection){
-        return null;
-    }
-    MyStream<T> filter(Predicate<T> predicate);
-    <R> MyStream<R> transform(Function<T,R> function);
     Map toMap();
     */
 }
