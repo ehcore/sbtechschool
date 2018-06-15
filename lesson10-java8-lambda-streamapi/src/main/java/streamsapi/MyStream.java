@@ -4,77 +4,88 @@ import java.util.*;
 import java.util.function.*;
 
 /**
- * Пока сырой код, все плохо и ничего не работает
+ * Пока сырой код, все плохо, но работает
+ * необходимо поработать над параметризацией
  * @param <T>
  */
 
-public class   MyStream<T,R> {
-    private List<T> collection;
+public class MyStream <T>{
     private List<T> tempCollection = new ArrayList<>();
     private List<T> resultCollection = new ArrayList<>();
+    private Map resultMap = new HashMap<>();
     private List<Process> queueTasks = new ArrayList<>();
 
-    MyStream(List<T> collection){
-        this.collection = collection;
+     private MyStream(List<T> collection){
+        resultCollection.addAll(collection);
     }
 
-    static <T> MyStream of(List<T> collection){
-        return new MyStream(collection);
+    public static <T> MyStream<T> of(List<T> collection){
+        return new MyStream<>(collection);
     }
 
-    MyStream filter(Predicate<T> predicate){
+    public  MyStream filter(Predicate<T> predicate){
         Filter filter = new Filter(predicate);
         queueTasks.add(filter);
         return this;
     }
 
-    MyStream transform(Function<T,R> function){
+    public MyStream transform(Function function){
         Transform transform = new Transform(function);
         queueTasks.add(transform);
         return this;
     }
 
 
-    List<T> collect(){
-        for(T t:collection){
-            for(Process task: queueTasks){
-                task.doWork(t);
-            }
+    public List<T> collect(){
+        for(Process task: queueTasks){
+            task.doWork();
         }
         return resultCollection;
     }
 
-    private class Filter implements Process<T>{
-        Predicate<T> predicate;
-        Filter(Predicate<T> predicate){
+    public Map toMap(Function functionKey, Function functionVal){
+        for(Process task:queueTasks){
+            task.doWork();
+        }
+        for(T t:resultCollection){
+            resultMap.put(functionKey.apply(t),functionVal.apply(t));
+        }
+        return resultMap;
+    }
+
+    private void swapList(){
+        tempCollection.clear();
+        tempCollection.addAll(resultCollection);
+        resultCollection.clear();
+    }
+
+    private class Filter implements Process{
+        Predicate predicate;
+        Filter(Predicate predicate){
             this.predicate = predicate;
         }
         @Override
-        public void doWork(T t) {
-            if(predicate.test(t)){
-                resultCollection.add(t);
+        public void doWork() {
+            swapList();
+            for(T t:tempCollection){
+                if(predicate.test(t)){
+                    resultCollection.add(t);
+                }
             }
         }
     }
 
-    private class Transform implements Process<T>{
-        Function<T,R> function;
-        Transform(Function<T,R> function){
+    private class Transform implements Process{
+        Function function;
+        Transform(Function function){
             this.function = function;
         }
-
         @Override
-        public void doWork(T t) {
-            if(resultCollection.contains(t)){
-                int index = resultCollection.indexOf(t);
-                T elem = resultCollection.get(index);
-                T result = (T)function.apply(elem);
-                resultCollection.set(index, result);
+        public void doWork() {
+            swapList();
+            for(T t:tempCollection){
+                resultCollection.add((T) function.apply(t));
             }
         }
     }
-
-    /*
-    Map toMap();
-    */
 }

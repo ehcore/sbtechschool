@@ -1,5 +1,5 @@
 package streamsapi;
 
-public interface Process<T> {
-    void doWork(T t);
+public interface Process {
+    void doWork();
 }
