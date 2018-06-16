@@ -6,6 +6,7 @@ import java.util.function.*;
 /**
  * Пока сырой код, все плохо, но работает
  * необходимо поработать над параметризацией
+ * upd 16.06.18: теперь и не компилируется
  * @param <T>
  */
 
@@ -23,13 +24,13 @@ public class MyStream <T>{
         return new MyStream<>(collection);
     }
 
-    public  MyStream filter(Predicate<T> predicate){
+    public  MyStream<T> filter(Predicate<? super T> predicate){
         Filter filter = new Filter(predicate);
         queueTasks.add(filter);
         return this;
     }
 
-    public MyStream transform(Function function){
+    public MyStream<T> transform(Function<? super T,? extends T> function){
         Transform transform = new Transform(function);
         queueTasks.add(transform);
         return this;
@@ -43,7 +44,7 @@ public class MyStream <T>{
         return resultCollection;
     }
 
-    public Map toMap(Function functionKey, Function functionVal){
+    public <K,V> Map<K,V> toMap(Function<? super K, ? extends V> functionKey, Function<? super K, ? extends V> functionVal){
         for(Process task:queueTasks){
             task.doWork();
         }
@@ -60,8 +61,8 @@ public class MyStream <T>{
     }
 
     private class Filter implements Process{
-        Predicate predicate;
-        Filter(Predicate predicate){
+        Predicate<? super T> predicate;
+        Filter(Predicate<? super T> predicate){
             this.predicate = predicate;
         }
         @Override
@@ -76,8 +77,8 @@ public class MyStream <T>{
     }
 
     private class Transform implements Process{
-        Function function;
-        Transform(Function function){
+        Function<? super T,? extends T> function;
+        Transform(Function<? super T,? extends T> function){
             this.function = function;
         }
         @Override
