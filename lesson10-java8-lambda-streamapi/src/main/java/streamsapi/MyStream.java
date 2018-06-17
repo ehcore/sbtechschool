@@ -44,7 +44,7 @@ public class MyStream <T>{
         return resultCollection;
     }
 
-    public <K,V> Map<K,V> toMap(Function<? super K, ? extends V> functionKey, Function<? super K, ? extends V> functionVal){
+    public <K,V> Map<K,V> toMap(Function<? super T, ? extends K> functionKey, Function<? super T, ? extends V> functionVal){
         for(Process task:queueTasks){
             task.doWork();
         }

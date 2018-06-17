@@ -30,7 +30,7 @@ public class MyStreamTester {
 
         Map personMap = MyStream.of(people)
                 .filter(p->p.getAge()>=35)
-                .toMap(p->((Person)p).getName(),p->p);
+                .toMap(p->p.getName(),p->p);
         System.out.println(personMap);
    }
 }
