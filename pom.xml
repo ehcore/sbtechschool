@@ -20,6 +20,7 @@
         <module>lesson8-buildtools-junit</module>
         <module>lesson9-serialization</module>
         <module>lesson10-java8-lambda-streamapi</module>
+        <module>lesson11and12-multithreading</module>
 
     </modules>
 
