@@ -3,11 +3,12 @@ import threadsapi.*;
 
 public class ThreadPoolTester {
     public static void main(String[] args) {
-        ThreadPool pool = new FixedThreadPool(7);
-        for (int i = 0; i < 6; i++) {
+        ThreadPool pool = new FixedThreadPool(10);
+        for (int i = 1; i <= 10; i++) {
             pool.execute(new TaskRunnable());
-            pool.execute(new TaskRunnable());
+            pool.start();
+            //pool.execute(new TaskRunnable());
         }
-        pool.start();
+
     }
 }
