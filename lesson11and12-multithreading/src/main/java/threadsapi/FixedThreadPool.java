@@ -1,55 +1,53 @@
 package threadsapi;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  */
 
 public class FixedThreadPool implements ThreadPool{
-    private final Set<Runnable> setWorkers;
     private int amountThreadsFinal;
     private int amountThreadsCurrent;
-    private final Deque<Runnable> tasks;
-
+    private final List<Runnable> tasks;
 
     public FixedThreadPool(int amountThreads){
         this.amountThreadsFinal = amountThreads;
-        this.setWorkers = new HashSet<>(amountThreads);
         this.tasks = new LinkedList<>();
     }
 
     @Override
     public void start() {
-/*
-        for(Runnable runnable: setWorkers){
-            Thread thread = new Thread(runnable);
+        for (int i = 0; i < tasks.size(); i++) {
+            Thread thread = new Thread(tasks.get(i));
             thread.start();
+            System.out.println(Thread.currentThread().getName() + " -------------**----** Удалили задачу, запустили поток," +
+                    " количество задач осталось:" + tasks.size() +
+                    " количество потоков текущее:" + amountThreadsCurrent);
             amountThreadsCurrent--;
         }
-*/
-        while (!tasks.isEmpty()){
-            for (int i = 0; i < amountThreadsFinal; i++) {
-                Thread thread = new Thread(tasks.removeFirst());
-                thread.start();
-            }
-        }
-
- /*       Thread thread = new Thread(tasks.removeFirst());
-        thread.start();
-        amountThreadsCurrent--;*/
+        tasks.clear();
     }
 
     @Override
     public void execute(Runnable runnable) {
-/*
-        if(amountThreadsCurrent > amountThreadsFinal){
-            //System.out.println("Нет свободного места");
+        if(amountThreadsCurrent >= amountThreadsFinal){
+            try {
+                start();
+                System.out.println(Thread.currentThread().getName() + " **** Нет свободного места, спим");
+                TimeUnit.SECONDS.sleep(5);
+                System.out.println(Thread.currentThread().getName() + " **----** Проснулись");
+                execute(runnable);
+                System.out.println(Thread.currentThread().getName() + " **--++-** Прошли дальше");
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }else{
-*/
-            //setWorkers.add(runnable);
-        tasks.add(runnable);
-        amountThreadsCurrent++;
-     //   }
+            System.out.println(Thread.currentThread().getName() + " **-###################-** Добавили задачу");
+            tasks.add(runnable);
+            amountThreadsCurrent++;
+       }
     }
 }

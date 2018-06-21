@@ -2,7 +2,9 @@
 public class TaskRunnable implements Runnable{
     @Override
     public void run() {
-        for (int i = 0; i < 1000; i++) {
+        double x = 0;
+        for (int i = 1; i <= 10; i++) {
+            //x = Math.sqrt(i);
             System.out.println(Thread.currentThread().getName() + " -- " + i);
         }
     }
