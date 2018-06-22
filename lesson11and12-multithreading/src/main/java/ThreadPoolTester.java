@@ -20,7 +20,5 @@ public class ThreadPoolTester {
             executorService.execute(new TaskRunnable());
         }
         executorService.shutdown();*/
-
-
     }
 }
