@@ -8,46 +8,69 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class FixedThreadPool implements ThreadPool{
-    private int amountThreadsFinal;
-    private int amountThreadsCurrent;
-    private final List<Runnable> tasks;
+
+    //private int amountThreadsCurrent;
+    private final LinkedList<Runnable> tasks;
+    private int amountThreads/*Final*/;
+
+    private volatile boolean isKillThemAll;
+
+    private final Thread[] threads;
+
 
     public FixedThreadPool(int amountThreads){
-        this.amountThreadsFinal = amountThreads;
+        this.amountThreads/*Final*/ = amountThreads;
         this.tasks = new LinkedList<>();
+        this.isKillThemAll = false;
+
+
+        threads = new Thread[amountThreads];
+        for (int i = 0; i < amountThreads; i++) {
+            threads[i] = new ThreadWorker();
+            threads[i].start();//******************
+        }
     }
 
     @Override
     public void start() {
-        for (int i = 0; i < tasks.size(); i++) {
-            Thread thread = new Thread(tasks.get(i));
-            thread.start();
-            System.out.println(Thread.currentThread().getName() + " -------------**----** Удалили задачу, запустили поток," +
-                    " количество задач осталось:" + tasks.size() +
-                    " количество потоков текущее:" + amountThreadsCurrent);
-            amountThreadsCurrent--;
-        }
-        tasks.clear();
     }
 
     @Override
     public void execute(Runnable runnable) {
-        if(amountThreadsCurrent >= amountThreadsFinal){
-            try {
-                start();
-                System.out.println(Thread.currentThread().getName() + " **** Нет свободного места, спим");
-                TimeUnit.SECONDS.sleep(5);
-                System.out.println(Thread.currentThread().getName() + " **----** Проснулись");
-                execute(runnable);
-                System.out.println(Thread.currentThread().getName() + " **--++-** Прошли дальше");
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }else{
-            System.out.println(Thread.currentThread().getName() + " **-###################-** Добавили задачу");
+        synchronized (tasks){
             tasks.add(runnable);
-            amountThreadsCurrent++;
-       }
+            tasks.notify();
+        }
+    }
+
+
+    public void shutdown(){
+        isKillThemAll=true;
+    }
+
+    private class ThreadWorker extends Thread{
+        @Override
+        public void run() {
+            //работа потоков бесконечна
+            while(true) {
+
+                synchronized (tasks){
+
+                    while (tasks.isEmpty()){
+                        if(isKillThemAll){
+                            return;
+                        }
+                        try {
+                            tasks.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                Runnable r = tasks.removeFirst();
+                r.run();
+            }
+        }
     }
 }
