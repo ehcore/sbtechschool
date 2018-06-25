@@ -10,14 +10,15 @@ public class Task<T> {
     }
 
     public T get() /*throws Exception*/{
-
+        //System.out.println(Thread.currentThread().getName());
         if(result==null){
             synchronized (this){
                 if(result==null) {
+                    System.out.println("Вычисление результата");
                     try {
                         result = callable.call();
                     } catch (Exception e) {
-                        throw new CallRTException();
+                        throw new CallRTException(e);
                     }
                 }
             }
