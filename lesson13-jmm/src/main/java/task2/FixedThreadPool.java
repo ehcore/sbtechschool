@@ -23,7 +23,7 @@ public class FixedThreadPool {
             threads[i] = new ThreadWorker();
             threads[i].setUncaughtExceptionHandler((t, e) -> {
                 System.out.println("мы поймали исключение " + e.getMessage());
-                synchronized (this){
+                synchronized (t){
                     failedTaskCount = failedTaskCount + 1;
                 }
 
@@ -73,11 +73,9 @@ public class FixedThreadPool {
     }
 
 
-    public void interrupt(){
+    public synchronized void interrupt(){
         interruptedTaskCount = tasks.size();
-        synchronized (tasks){
-            tasks.clear();
-        }
+        tasks.clear();
         shutdown();
     }
 
