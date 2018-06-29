@@ -1,6 +1,7 @@
 package task2;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class FixedThreadPool {
     private final LinkedList<Runnable> tasks;
@@ -8,14 +9,15 @@ public class FixedThreadPool {
     private int amountThreads;
     private volatile int interruptedTaskCount;
     private volatile boolean isKillThemAll;
-    private volatile int failedTaskCount;
+    private /*volatile*/ AtomicInteger failedTaskCount = new AtomicInteger(0);
     private final Thread[] threads;
-
+   
 
     public FixedThreadPool(int amountThreads){
         this.amountThreads = amountThreads;
         this.tasks = new LinkedList<>();
         this.isKillThemAll = false;
+
 
 
         threads = new Thread[amountThreads];
@@ -24,8 +26,8 @@ public class FixedThreadPool {
             threads[i].setUncaughtExceptionHandler((t, e) -> {
                 System.out.println("мы поймали исключение " + e.getMessage());
 //                synchronized (t){
-                    int temp = failedTaskCount;
-                    failedTaskCount = temp + 1;
+                    failedTaskCount.getAndIncrement();
+
 //                }
 
             });
@@ -85,11 +87,11 @@ public class FixedThreadPool {
     }
 
     public int getFailedTaskCount(){
-        return failedTaskCount;
+        return failedTaskCount.get();
     }
 
     public synchronized int getCompletedTaslCount(){
-        int complTask = taskCount - failedTaskCount - interruptedTaskCount;
+        int complTask = taskCount - failedTaskCount.get() - interruptedTaskCount;
         return complTask;
     }
 
