@@ -11,7 +11,7 @@ public class FixedThreadPool {
     private volatile boolean isKillThemAll;
     private /*volatile*/ AtomicInteger failedTaskCount = new AtomicInteger(0);
     private final Thread[] threads;
-   
+
 
     public FixedThreadPool(int amountThreads){
         this.amountThreads = amountThreads;
