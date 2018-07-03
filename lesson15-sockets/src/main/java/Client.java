@@ -1,7 +1,8 @@
+
 import java.io.*;
 import java.net.*;
 
-public class Client {
+public class Client{
 
     private PrintWriter out;
     private BufferedReader in;
@@ -37,5 +38,4 @@ public class Client {
     public static void main(String[] args) {
         Client client = new Client();
     }
-
 }
