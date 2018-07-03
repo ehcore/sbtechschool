@@ -7,14 +7,16 @@ public class Server {
     public Server(int port){
         try (ServerSocket serverSocket = new ServerSocket(port)) {
 
-            new Thread(new ServerThread(serverSocket.accept())).start();
+          //  new Thread(new ServerThread(serverSocket.accept())).start();
 
-/*
-            ExecutorService service = Executors.newFixedThreadPool(10);
-            for (int i = 0; i < 10; i++) {
-                service.execute(new ServerThread(serverSocket.accept()));
+            while(true){
+                ExecutorService service = Executors.newFixedThreadPool(2);
+                for (int i = 0; i < 2; i++) {
+                    service.execute(new ServerThread(serverSocket.accept()));
+                }
+
             }
-*/
+
 
         }catch (IOException exc){
 

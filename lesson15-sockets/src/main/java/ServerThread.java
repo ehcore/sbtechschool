@@ -19,17 +19,19 @@ public class ServerThread implements Runnable {
 
 
 //            while (true) {
-                String strRead = in.readLine();
-                System.out.println(strRead);
+            String strRead = null;
+            while ((strRead = in.readLine()) != null) {
+//                String strRead = in.readLine();
+                System.out.println(Thread.currentThread().getName() + ":" + strRead);
                 //out.println(strRead);
                 if (strRead.equals("exit")) {
                     return;
                     //break;
                 }
- /*               if (strRead.equals("stop")) {
-                    return;
-                }*/
-//            }
+/*               if (strRead.equals("stop")) {
+                return;
+            }*/
+            }
 
         }catch (IOException exc){
 
