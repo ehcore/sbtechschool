@@ -22,6 +22,7 @@
         <module>lesson10-java8-lambda-streamapi</module>
         <module>lesson11and12-multithreading</module>
         <module>lesson13-jmm</module>
+        <module>lesson15-sockets</module>
 
     </modules>
 
