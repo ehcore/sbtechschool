@@ -14,7 +14,7 @@ public class ServerThread implements Runnable {
     @Override
     public void run() {
 
-        try(reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+   /*     try(reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(new BufferedWriter(
                                     new OutputStreamWriter(socket.getOutputStream())), true)){
 
@@ -29,15 +29,15 @@ public class ServerThread implements Runnable {
                     return;
                     //break;
                 }
-/*               if (strRead.equals("stop")) {
+*//*               if (strRead.equals("stop")) {
                 return;
-            }*/
+            }*//*
             }
 
         }catch (IOException exc){
 
         }
-
+*/
 
 
 

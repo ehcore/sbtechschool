@@ -53,7 +53,7 @@ public class ClientFront extends Application {
         });
 */
 
-        setUpNetworking();
+       // setUpNetworking();
 
 
         FlowPane root = new FlowPane(10,10);
@@ -67,6 +67,14 @@ public class ClientFront extends Application {
         txtF1 = new TextField();
 
         btn1 = new Button("Войти");
+        btn1.setOnAction((event -> {
+            setUpNetworking();
+
+            Thread thread = new Thread(new IncomingReader());
+            thread.start();
+
+
+        }));
 
         txtA1 = new TextArea();
         txtA1.setMaxSize(380,300);
@@ -99,8 +107,6 @@ public class ClientFront extends Application {
         primaryStage.setResizable(false);
         primaryStage.show();
 
-        Thread thread = new Thread(new IncomingReader());
-        thread.start();
 
 
     }
@@ -112,6 +118,7 @@ public class ClientFront extends Application {
             socket = new Socket("localhost",5000);
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new PrintWriter(socket.getOutputStream(),true);
+            writer.println(txtF1.getText());
         }catch(IOException exc){
             exc.printStackTrace();
         }
