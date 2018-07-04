@@ -1,20 +1,22 @@
 
+
+
 import java.io.*;
 import java.net.*;
 
-public class Client{
+public class Client {
 
     private PrintWriter out;
     private BufferedReader in;
 
 
     public Client() {
-
-        while (true) {
+        System.out.println("11");
+ /*       while (true) {
             String ip = "localhost";
             try (Socket socket = new Socket(ip, 2044)) {
                 out = new PrintWriter(socket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(System.in/*socket.getInputStream()*/));
+                in = new BufferedReader(new InputStreamReader(System.in*//*socket.getInputStream()*//*));
 
                 try {
                     String strRead = in.readLine();
@@ -32,10 +34,19 @@ public class Client{
             }
 
 
-        }
+        }*/
     }
 
+
+
     public static void main(String[] args) {
-        Client client = new Client();
+        //Client client = new Client();
+        //ClientFront front = new ClientFront(args);
+        ClientFront.go(args);
+
     }
+
+
+
+
 }

@@ -1,29 +1,30 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.*;
 
 public class ServerThread implements Runnable {
     private Socket socket;
+    private PrintWriter writer;
+    private BufferedReader reader;
+
+
     public ServerThread(Socket socket){
         this.socket = socket;
     }
     @Override
     public void run() {
 
-        try(BufferedReader in =
-                    new BufferedReader(
-                            new InputStreamReader(socket.getInputStream()));
-            PrintWriter out =
-                    new PrintWriter(
-                            new BufferedWriter(
+        try(reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        writer = new PrintWriter(new BufferedWriter(
                                     new OutputStreamWriter(socket.getOutputStream())), true)){
 
 
 //            while (true) {
             String strRead = null;
-            while ((strRead = in.readLine()) != null) {
+            while ((strRead = reader.readLine()) != null) {
 //                String strRead = in.readLine();
                 System.out.println(Thread.currentThread().getName() + ":" + strRead);
-                //out.println(strRead);
+                writer.println(strRead);
                 if (strRead.equals("exit")) {
                     return;
                     //break;

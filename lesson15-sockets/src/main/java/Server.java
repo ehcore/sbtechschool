@@ -1,9 +1,10 @@
 import java.io.*;
 import java.net.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class Server {
+    private List<Socket> list = new ArrayList<>();
     public Server(int port){
         try (ServerSocket serverSocket = new ServerSocket(port)) {
 
@@ -12,7 +13,9 @@ public class Server {
             while(true){
                 ExecutorService service = Executors.newFixedThreadPool(2);
                 for (int i = 0; i < 2; i++) {
-                    service.execute(new ServerThread(serverSocket.accept()));
+                    Socket socket = serverSocket.accept();
+                    service.execute(new ServerThread(socket));
+                    list.add(socket);
                 }
 
             }
@@ -24,6 +27,6 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Server server = new Server(2044);
+        Server server = new Server(5000);
     }
 }
