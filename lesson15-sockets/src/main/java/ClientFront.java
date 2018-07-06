@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
 public class ClientFront extends Application {
 
@@ -25,6 +26,8 @@ public class ClientFront extends Application {
 
     Socket socket;
 
+
+
     public ClientFront(/*String[] args*/){
 
 
@@ -39,22 +42,6 @@ public class ClientFront extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-/*
-        TextField txtAr = new TextField();
-
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                txtAr.setText("Hello World!");
-            }
-        });
-*/
-
-       // setUpNetworking();
-
 
         FlowPane root = new FlowPane(10,10);
 
@@ -68,10 +55,24 @@ public class ClientFront extends Application {
 
         btn1 = new Button("Войти");
         btn1.setOnAction((event -> {
-            setUpNetworking();
 
-            Thread thread = new Thread(new IncomingReader());
-            thread.start();
+            if("Войти".equals(btn1.getText())){
+                setUpNetworking();
+
+                Thread thread = new Thread(new IncomingReader());
+                thread.start();
+
+                txtF1.setDisable(true);
+                btn1.setText("Выйти");
+            }else if("Выйти".equals(btn1.getText())){
+
+                closeNetworking();
+
+                txtF1.setDisable(false);
+                btn1.setText("Войти");
+
+            }
+
 
 
         }));
@@ -125,6 +126,20 @@ public class ClientFront extends Application {
 
     }
 
+    private void closeNetworking(){
+
+        try{
+            //writer.println(txtF1.getText());
+            writer.close();
+            reader.close();
+            socket.close();
+        }catch(IOException exc){
+            exc.printStackTrace();
+        }
+
+    }
+
+
     class IncomingReader implements Runnable{
 
         @Override
@@ -135,6 +150,7 @@ public class ClientFront extends Application {
                 while((message = reader.readLine()) != null){
                     txtA1.appendText(message + "\n");
                 }
+                System.out.println("Thread stoped");
 
             }catch(Exception exc){
                 exc.printStackTrace();

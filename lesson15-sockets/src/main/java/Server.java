@@ -39,13 +39,14 @@ public class Server {
 
     class ClientHandler implements Runnable{
 
-        BufferedReader reader;
-        Socket socket;
+        private BufferedReader reader;
+        private Socket socket;
+        private String login;
 
-        public ClientHandler(Socket clientSocket){
+        public ClientHandler(Socket clientSocket, String login){
 
             try{
-
+                this.login = login;
                 socket = clientSocket;
                 InputStreamReader isReader = new InputStreamReader(socket.getInputStream());
                 reader = new BufferedReader(isReader);
@@ -62,7 +63,7 @@ public class Server {
 
             try{
                 while((message = reader.readLine()) != null){
-                    tellEveryone(/*socket.getPort() +">>>" + */message);
+                    tellEveryone(login +">>>" + message);
                 }
 
             }catch(Exception exc){
@@ -92,10 +93,10 @@ public class Server {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 clientOutputStream.add(writer);
                 String login = null;
-                if((login = reader.readLine()) != null) map.put(login,clientSocket);
-
-                Thread t = new Thread(new ClientHandler(clientSocket));
-                t.start();
+                if((login = reader.readLine()) != null)
+                    //map.put(login,clientSocket);
+                {Thread t = new Thread(new ClientHandler(clientSocket,login));
+                t.start();}
             }
 
 
@@ -112,6 +113,8 @@ public class Server {
             int curIntMap = e.getValue();
 */
 
+
+/*
         for(HashMap.Entry<String,Socket> set: map.entrySet() ){
             String login = set.getKey();
             Socket socket =  set.getValue();
@@ -121,19 +124,20 @@ public class Server {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+*/
+        for(PrintWriter writer: clientOutputStream){
+            try{
+                writer.println(message);
+            }catch(Exception exc){
+                exc.printStackTrace();
+            }
+        }
 
 
         }
 
 
-/*        for(PrinvtWriter writer: clientOutputStream){
-            try{
-
-            }catch(Exception exc){
-                exc.printStackTrace();
-            }
-        }*/
 
     }
 
-}
+
