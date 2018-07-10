@@ -26,14 +26,7 @@ public class ClientFront extends Application {
 
     Socket socket;
 
-
-
-    public ClientFront(/*String[] args*/){
-
-
-
-
-        /*launch(args);*/
+    public ClientFront(){
     }
 
     static void go(String[] args){
@@ -65,16 +58,10 @@ public class ClientFront extends Application {
                 txtF1.setDisable(true);
                 btn1.setText("Выйти");
             }else if("Выйти".equals(btn1.getText())){
-
                 closeNetworking();
-
                 txtF1.setDisable(false);
                 btn1.setText("Войти");
-
             }
-
-
-
         }));
 
         txtA1 = new TextArea();
@@ -92,13 +79,7 @@ public class ClientFront extends Application {
             txtF2.clear();
         }));
 
-
-
-
-
-
         root.getChildren().addAll(lbl1,txtF1,btn1,txtA1,lbl2,txtF2,btn2);
-        /*root.getChildren().add(txtAr);*/
 
         Scene scene;
         scene = new Scene(root, 400, 400);
@@ -129,16 +110,13 @@ public class ClientFront extends Application {
     private void closeNetworking(){
 
         try{
-            //writer.println(txtF1.getText());
             writer.close();
             reader.close();
             socket.close();
         }catch(IOException exc){
             exc.printStackTrace();
         }
-
     }
-
 
     class IncomingReader implements Runnable{
 
@@ -155,12 +133,8 @@ public class ClientFront extends Application {
             }catch(Exception exc){
                 exc.printStackTrace();
             }
-
-
         }
-
     }
-
 }
 
 
