@@ -7,9 +7,9 @@ public class Tractor {
     private Orientation orientation = Orientation.NORTH;
 
     public void move(String command) {
-        if (command == "F") {
+        if ("F".equals(command)) {
             moveForwards();
-        } else if (command == "T") {
+        } else if ("T".equals(command)) {
             turnClockwise();
         }
     }
