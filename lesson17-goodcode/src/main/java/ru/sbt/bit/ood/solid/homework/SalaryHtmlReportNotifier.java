@@ -41,8 +41,7 @@ public class SalaryHtmlReportNotifier {
         ps.setDate(2, new java.sql.Date(dateRange.getDateFrom().toEpochDay()));
         ps.setDate(3, new java.sql.Date(dateRange.getDateTo().toEpochDay()));
         // execute query and get the results
-        ResultSet results = ps.executeQuery();
-        return results;
+        return ps.executeQuery();
     }
 
     private StringBuilder getHtml(ResultSet results) throws SQLException{
