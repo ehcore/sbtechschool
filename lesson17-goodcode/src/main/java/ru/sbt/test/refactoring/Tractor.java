@@ -14,7 +14,7 @@ public class Tractor {
         }
     }
 
-    public void moveForwards() {
+    private void moveForwards() {
         if (isOrientationNorth()) {
             position = changePosition(0,1);
         } else if (isOrientationEast()) {
@@ -29,7 +29,7 @@ public class Tractor {
         }
     }
 
-    public void turnClockwise() {
+    private void turnClockwise() {
         if (isOrientationNorth()) {
             setOrientation(Orientation.EAST);
         } else if (isOrientationEast()) {
@@ -41,7 +41,7 @@ public class Tractor {
         }
     }
 
-    public void setOrientation(Orientation orientation){
+    private void setOrientation(Orientation orientation){
         this.orientation = orientation;
     }
 
