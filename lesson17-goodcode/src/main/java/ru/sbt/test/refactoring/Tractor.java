@@ -31,14 +31,18 @@ public class Tractor {
 
     public void turnClockwise() {
         if (isOrientationNorth()) {
-            orientation = Orientation.EAST;
+            setOrientation(Orientation.EAST);
         } else if (isOrientationEast()) {
-            orientation = Orientation.SOUTH;
+            setOrientation(Orientation.SOUTH);
         } else if (isOrientationSouth()) {
-            orientation = Orientation.WEST;
+            setOrientation(Orientation.WEST);
         } else if (isOrientationWest()) {
-            orientation = Orientation.NORTH;
+            setOrientation(Orientation.NORTH);
         }
+    }
+
+    public void setOrientation(Orientation orientation){
+        this.orientation = orientation;
     }
 
     public int getPositionX() {
@@ -76,4 +80,5 @@ public class Tractor {
     private boolean isTractorOutsideField(int x, int y){
         return  ((x > field[0]) || (y > field[1]));
     }
+
 }
