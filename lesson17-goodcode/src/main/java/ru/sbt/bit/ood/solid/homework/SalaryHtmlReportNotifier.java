@@ -21,7 +21,7 @@ public class SalaryHtmlReportNotifier {
         this.connection = databaseConnection;
     }
 
-    public void /*generateAndSendHtml*/ makeSalaryReport(String departmentId, DateRange dateRange, String recipients) {
+    public void makeSalaryReport(String departmentId, DateRange dateRange, String recipients) {
         try {
             ResultSet results = getQueryResult(departmentId,dateRange);
             StringBuilder resultingHtml = getHtml(results);
