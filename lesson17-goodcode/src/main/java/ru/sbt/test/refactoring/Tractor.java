@@ -2,8 +2,8 @@ package ru.sbt.test.refactoring;
 
 public class Tractor {
 
-    private int[] position = new int[] { 0, 0 };
-    private final int[] field = new int[] { 5, 5 };
+    private int[] position = new int[]{0, 0};
+    private static final int[] field = new int[]{5, 5};
     private Orientation orientation = Orientation.NORTH;
 
     public void move(String command) {
@@ -16,15 +16,15 @@ public class Tractor {
 
     private void moveForwards() {
         if (isOrientationNorth()) {
-            position = changePosition(0,1);
+            position = changePosition(0, 1);
         } else if (isOrientationEast()) {
-            position = changePosition(1,0);
+            position = changePosition(1, 0);
         } else if (isOrientationSouth()) {
-            position = changePosition(0,-1);
+            position = changePosition(0, -1);
         } else if (isOrientationWest()) {
-            position = changePosition(-1,0);
+            position = changePosition(-1, 0);
         }
-        if (isTractorOutsideField(position[0],position[1])) {
+        if (isTractorOutsideField(position[0], position[1])) {
             throw new TractorInDitchException();
         }
     }
@@ -41,7 +41,7 @@ public class Tractor {
         }
     }
 
-    private void setOrientation(Orientation orientation){
+    private void setOrientation(Orientation orientation) {
         this.orientation = orientation;
     }
 
@@ -57,28 +57,28 @@ public class Tractor {
         return orientation;
     }
 
-    private boolean isOrientationNorth(){
+    private boolean isOrientationNorth() {
         return orientation == Orientation.NORTH;
     }
 
-    private boolean isOrientationEast(){
+    private boolean isOrientationEast() {
         return orientation == Orientation.EAST;
     }
 
-    private boolean isOrientationSouth(){
+    private boolean isOrientationSouth() {
         return orientation == Orientation.SOUTH;
     }
 
-    private boolean isOrientationWest(){
+    private boolean isOrientationWest() {
         return orientation == Orientation.WEST;
     }
 
-    private int[] changePosition(int dx, int dy){
+    private int[] changePosition(int dx, int dy) {
         return new int[]{position[0] + dx, position[1] + dy};
     }
 
-    private boolean isTractorOutsideField(int x, int y){
-        return  ((x > field[0]) || (y > field[1]));
+    private boolean isTractorOutsideField(int x, int y) {
+        return ((x > field[0]) || (y > field[1]));
     }
 
 }
