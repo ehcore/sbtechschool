@@ -2,7 +2,7 @@ package ru.sbt.patterns2;
 
 import java.util.*;
 
-public class ObserverTest {
+public class ObserverApp {
     public static void main(String[] args) {
         MeteoStation station = new MeteoStation();
         station.addObserver(new ConsoleObserver());
