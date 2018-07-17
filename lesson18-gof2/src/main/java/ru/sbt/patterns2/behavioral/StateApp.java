@@ -1,4 +1,4 @@
-package ru.sbt.patterns2;
+package ru.sbt.patterns2.behavioral;
 
 
 public class StateApp {
