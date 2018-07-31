@@ -27,7 +27,7 @@
         <property name="driverClassName"
                   value="org.h2.Driver" />
         <property name="url"
-                  value="jdbc:h2:c:\temp\recipes" />
+                  value="jdbc:h2:./recipes" />
         <property name="username" value="sa" />
         <property name="password" value="" />
     </bean>
