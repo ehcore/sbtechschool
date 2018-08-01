@@ -1,13 +1,13 @@
 package model;
 
 
-public class IngredientsRecipes {
+public class IngredientsRecipe {
     private Integer recipeId;
     private Integer ingredientId;
     private Double amount;
     private Integer unitId;
 
-    public IngredientsRecipes(Integer recipeId, Integer ingredientId, Double amount, Integer unitId) {
+    public IngredientsRecipe(Integer recipeId, Integer ingredientId, Double amount, Integer unitId) {
         this.recipeId = recipeId;
         this.ingredientId = ingredientId;
         this.amount = amount;
@@ -48,7 +48,7 @@ public class IngredientsRecipes {
 
     @Override
     public String toString() {
-        return "IngredientsRecipes{" +
+        return "IngredientsRecipe{" +
                 "recipeId=" + recipeId +
                 ", ingredientId=" + ingredientId +
                 ", amount=" + amount +
