@@ -25,7 +25,7 @@ public class IngredientsRecipeDaoImpl implements IngredientsRecipeDao{
 
         List<Ingredient> list =
                 jdbcTemplate.query(
-                        "SELECT recipes.ingredients_recipes.id_ingredients as id , recipes.ingredients.name" +
+                        "SELECT recipes.ingredients_recipes.id_ingredients AS id , recipes.ingredients.name" +
                                 " FROM recipes.ingredients_recipes JOIN recipes.ingredients " +
                                 " ON recipes.ingredients_recipes.id_ingredients = recipes.ingredients.id " +
                                 " WHERE recipes.ingredients_recipes.id_recipes=?",
@@ -33,6 +33,28 @@ public class IngredientsRecipeDaoImpl implements IngredientsRecipeDao{
         return list;
 
     }
+
+    @Override
+    public List<IngredientsRecipeView> getIngredientsRecipeViewByNameRecipe(String name){
+        RecipeDao recipeDao = new RecipeDaoImpl(jdbcTemplate);
+        Recipe recipe = recipeDao.getRecipeByName(name);
+// id_recipes int(10) NOT NULL, id_ingredients int(10) NOT NULL, amount decimal(8,3) NOT NULL, id_unit int(10)
+        List<IngredientsRecipeView> list =
+                jdbcTemplate.query(
+                        "SELECT temp.name AS name_ingredient, temp.amount, temp.id_unit,  recipes.units.name AS name_unit FROM " +
+                                "(SELECT recipes.ingredients_recipes.id_unit , recipes.ingredients.name, recipes.ingredients_recipes.amount " +
+                                "FROM recipes.ingredients_recipes JOIN recipes.ingredients ON recipes.ingredients_recipes.id_ingredients = recipes.ingredients.id " +
+                                "WHERE recipes.ingredients_recipes.id_recipes=?) temp JOIN recipes.units ON temp.id_unit = recipes.units.id",
+
+/*                        "SELECT temp.name AS name_ingredient, temp.amount, temp.id_unit,  recipes.units.name AS name_unit FROM (SELECT recipes.ingredients_recipes.id_unit , recipes.ingredients.name, recipes.ingredients_recipes.amount" +
+                                " FROM recipes.ingredients_recipes JOIN recipes.ingredients " +
+                                " ON recipes.ingredients_recipes.id_ingredients = recipes.ingredients.id " +
+                                " WHERE recipes.ingredients_recipes.id_recipes=?) temp JOIN recipes.units ON temp.id_unit = recipes.units.id",*/
+                        new IngredientsRecipeViewRowMapper(),recipe.getId());
+        return list;
+
+    }
+
 
     @Override
     public boolean addIngredientsToRecipe(String recipeName, String ingredientName,
@@ -71,5 +93,17 @@ public class IngredientsRecipeDaoImpl implements IngredientsRecipeDao{
             return ingredient;
         }
     }
+
+    private class IngredientsRecipeViewRowMapper implements RowMapper<IngredientsRecipeView> {
+        @Override
+        public IngredientsRecipeView mapRow(ResultSet resultSet, int i) throws SQLException {
+            IngredientsRecipeView ingredientsRecipeView =
+                    new IngredientsRecipeView(resultSet.getString("name_ingredient"),
+                            resultSet.getDouble("amount"),
+                            resultSet.getString("name_unit"));
+            return ingredientsRecipeView;
+        }
+    }
+
 
 }

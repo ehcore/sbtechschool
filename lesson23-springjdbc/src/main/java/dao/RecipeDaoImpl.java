@@ -34,6 +34,16 @@ public class RecipeDaoImpl implements RecipeDao{
     }
 
     @Override
+    public List<Recipe> getRecipesByName(String name){
+        List<Recipe> list =
+                jdbcTemplate.query(
+                        "SELECT * FROM recipes.recipes WHERE name LIKE ?",
+                        new RecipeRowMapper(),
+                        name + "%");
+        return list;
+    }
+
+    @Override
     public List<Recipe> getAllRecipes(){
         List<Recipe> list =
                 jdbcTemplate.query(

@@ -1,13 +1,14 @@
 import java.sql.*;
 
 import dao.*;
+import exceptions.NoSuchOperationException;
 import model.Recipe;
 import org.springframework.context.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class MainApp {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, NoSuchOperationException{
 /*
         Connection conn = DriverManager.
                 getConnection("jdbc:h2:./recipes", "sa", "");
@@ -25,7 +26,7 @@ public class MainApp {
 
 */
 
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+/*        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         ctx.refresh();
 
         JdbcTemplate jdbcTemplate = (JdbcTemplate) ctx.getBean("jdbcTemplate");
@@ -57,7 +58,10 @@ public class MainApp {
         ingredientsRecipeDao.addIngredientsToRecipe("Салат Оливье",
                 "Огурец",100d,"гр");
 
-        System.out.println(ingredientsRecipeDao.getIngredientsByNameRecipe("Салат Оливье"));;
+        System.out.println(ingredientsRecipeDao.getIngredientsByNameRecipe("Салат Оливье"));;*/
+
+        Client client = new Client();
+        client.start();
 
     }
 }
