@@ -1,15 +1,15 @@
 import java.util.*;
 
-import dao.IngredientsRecipeDao;
-import dao.IngredientsRecipeDaoImpl;
-import dao.RecipeDao;
-import dao.RecipeDaoImpl;
+import dao.*;
 import exceptions.*;
+import model.Ingredient;
 import model.IngredientsRecipeView;
 import model.Recipe;
+import model.Unit;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 public class Client {
     private JdbcTemplate jdbcTemplate;
@@ -47,7 +47,7 @@ public class Client {
                     break;
                 case 6:
                     try {
-                        getMenuPreferences();
+                        makeSettings();
                     }catch (NoSuchOperationException exc){
                         System.out.println(exc.getMessage());
                     }
@@ -89,7 +89,7 @@ public class Client {
         }
     }
 
-
+    @Transactional
     private void addRecipe(){
         String str = getStringLine("рецепта");
         if(str==null){
@@ -144,8 +144,95 @@ public class Client {
         }
     }
 
-    private void getMenuPreferences() throws NoSuchOperationException {
-        throw new NoSuchOperationException();
+
+    private void makeSettings() throws NoSuchOperationException{
+        while (true) {
+            int numOper = getMenuPreferences();
+            switch (numOper) {
+                case 1:
+                    showListIngredients();
+                    break;
+                case 2:
+                    addIngredient();
+                    break;
+                case 3:
+                    showListUnits();
+                    break;
+                case 4:
+                    addUnit();
+                    break;
+                case 5:
+                    return;
+            }
+        }
+    }
+
+    private void showListIngredients() {
+        IngredientDao ingredientDao = new IngredientDaoImpl(jdbcTemplate);
+        List<Ingredient> listIngredients = ingredientDao.getAllIngredients();
+        for(Ingredient ingredient : listIngredients){
+            System.out.println(ingredient.getName());
+        }
+    }
+
+    private void addIngredient() {
+        String str = getStringLine("ингредиента");
+        if(str==null){
+            System.out.println("введено пустое наименование, повторите");
+            return;
+        }
+        IngredientDao ingredientDao = new IngredientDaoImpl(jdbcTemplate);
+        ingredientDao.addIngredient(str);
+    }
+
+    private void showListUnits() {
+        UnitDao unitDao = new UnitDaoImpl(jdbcTemplate);
+        List<Unit> listUnits = unitDao.getAllUnits();
+        for(Unit unit : listUnits){
+            System.out.println(unit.getName());
+        }
+    }
+
+    private void addUnit() {
+        String str = getStringLine("единицы измерения");
+        if(str==null){
+            System.out.println("введено пустое наименование, повторите");
+            return;
+        }
+        UnitDao unitDao = new UnitDaoImpl(jdbcTemplate);
+        unitDao.addUnit(str);
+    }
+
+
+    private int getMenuPreferences()  {
+
+        while (true) {
+            try {
+                System.out.println();
+                System.out.println("Настройки справочников:");
+                System.out.println("1.Вывести список ингредиентов");
+                System.out.println("2.Добавление ингредиента");
+                System.out.println("3.Вывести список единиц измерений");
+                System.out.println("4.Добавление единицы измерения");
+                System.out.println("5.Выход");
+                System.out.println("Введите номер пункта меню:");
+                Scanner scanner = new Scanner(System.in);
+                int numOper = 0;
+                try {
+                    numOper = scanner.nextInt();
+                }catch (InputMismatchException exc){
+                    throw new NoSuchOperationException();
+                }
+                if ((numOper < 1) || (numOper > 5)) {
+                    throw new NoSuchOperationException();
+                }
+                return numOper;
+            } catch (NoSuchOperationException exc) {
+                System.out.println(exc.getMessage());
+            }
+        }
+
+
     }
 
 
@@ -170,13 +257,14 @@ public class Client {
     private int getMenuOperation() {
         while (true) {
             try {
+                System.out.println();
                 System.out.println("Меню:");
                 System.out.println("1.Поиск рецепта");
                 System.out.println("2.Поиск рецептов по части имени");
                 System.out.println("3.Добавление рецепта");
                 System.out.println("4.Удаление рецепта");
                 System.out.println("5.Вывести список рецептов");
-                System.out.println("6.Настройки");
+                System.out.println("6.Настройки справочников");
                 System.out.println("7.Выход");
                 System.out.println("Введите номер пункта меню:");
                 Scanner scanner = new Scanner(System.in);
