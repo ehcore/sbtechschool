@@ -85,7 +85,6 @@ public class Client {
         }
     }
 
-    @Transactional
     private void addRecipe(){
         String str = getStringLine("рецепта");
         if(str==null){
