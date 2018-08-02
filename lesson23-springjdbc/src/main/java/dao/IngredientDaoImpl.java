@@ -12,7 +12,7 @@ import java.util.List;
 public class IngredientDaoImpl implements IngredientDao {
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
+    //@Autowired
     public IngredientDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

@@ -6,10 +6,10 @@ import model.Ingredient;
 import model.IngredientsRecipeView;
 import model.Recipe;
 import model.Unit;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.Transactional;
+
 
 public class Client {
     private JdbcTemplate jdbcTemplate;
@@ -20,7 +20,7 @@ public class Client {
     }
 
     private void init(){
-        ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
        // ctx.refresh();
         jdbcTemplate = (JdbcTemplate) ctx.getBean("jdbcTemplate");
     }

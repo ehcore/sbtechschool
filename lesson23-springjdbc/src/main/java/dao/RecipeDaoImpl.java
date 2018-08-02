@@ -14,7 +14,7 @@ import java.util.List;
 public class RecipeDaoImpl implements RecipeDao{
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
+   // @Autowired
     public RecipeDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

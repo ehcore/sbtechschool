@@ -13,7 +13,7 @@ import java.util.List;
 public class UnitDaoImpl implements UnitDao{
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
+   // @Autowired
     public UnitDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
