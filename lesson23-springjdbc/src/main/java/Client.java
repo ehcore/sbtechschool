@@ -46,11 +46,7 @@ public class Client {
                     showListRecipes();
                     break;
                 case 6:
-                    try {
-                        makeSettings();
-                    }catch (NoSuchOperationException exc){
-                        System.out.println(exc.getMessage());
-                    }
+                    makeSettings();
                     break;
                 case 7:
                     return;
@@ -145,7 +141,7 @@ public class Client {
     }
 
 
-    private void makeSettings() throws NoSuchOperationException{
+    private void makeSettings(){
         while (true) {
             int numOper = getMenuPreferences();
             switch (numOper) {
