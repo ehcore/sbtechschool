@@ -5,7 +5,6 @@ import dao.IngredientsRecipeDaoImpl;
 import dao.RecipeDao;
 import dao.RecipeDaoImpl;
 import exceptions.*;
-import model.Ingredient;
 import model.IngredientsRecipeView;
 import model.Recipe;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,20 +14,18 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class Client {
     private JdbcTemplate jdbcTemplate;
 
-
-    public void start() throws NoSuchOperationException{
+    public void start(){
         init();
         work();
     }
 
     private void init(){
         ConfigurableApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        ctx.refresh();
-
+       // ctx.refresh();
         jdbcTemplate = (JdbcTemplate) ctx.getBean("jdbcTemplate");
     }
 
-    private void work()  throws NoSuchOperationException {
+    private void work(){
 
         while (true) {
             int numOper = getMenuOperation();
@@ -37,7 +34,6 @@ public class Client {
                     findRecipe();
                     break;
                 case 2:
-
                     findRecipes();
                     break;
                 case 3:
@@ -50,14 +46,17 @@ public class Client {
                     showListRecipes();
                     break;
                 case 6:
-                    getMenuPreferences();
+                    try {
+                        getMenuPreferences();
+                    }catch (NoSuchOperationException exc){
+                        System.out.println(exc.getMessage());
+                    }
                     break;
                 case 7:
                     return;
             }
         }
     }
-
 
 
     private void findRecipe(){
@@ -75,13 +74,6 @@ public class Client {
         for(IngredientsRecipeView view : listView){
             System.out.println(view.getIngredient() + " " + view.getAmount() + " " + view.getUnit());
         }
-
-/*
-        List<Ingredient> listIngredients = ingredientsRecipeDao.getIngredientsByNameRecipe(recipe.getName());
-        for(Ingredient ingredient : listIngredients){
-            System.out.println(ingredient);
-        }
-*/
     }
 
     private void findRecipes() {
@@ -95,13 +87,44 @@ public class Client {
         for(Recipe recipe: listRecipe){
             System.out.println(recipe);
         }
-
     }
 
 
-    private void addRecipe() throws NoSuchOperationException {
-        throw new NoSuchOperationException();
+    private void addRecipe(){
+        String str = getStringLine("рецепта");
+        if(str==null){
+            System.out.println("введено пустое наименование, повторите");
+            return;
+        }
+        RecipeDao recipeDao = new RecipeDaoImpl(jdbcTemplate);
+        recipeDao.addRecipe(str);
+        addIngredientToRecipe(str);
     }
+
+    private void addIngredientToRecipe(String nameRecipe){
+        IngredientsRecipeDao ingredientsRecipeDao = new IngredientsRecipeDaoImpl(jdbcTemplate);
+
+        while (true) {
+            System.out.println("Введите ингредиент (для окончания процесса ввода ингредиента введите ВЫХОД)");
+            Scanner scanner = new Scanner(System.in);
+            String nameIngredient = scanner.nextLine().trim();
+            if("ВЫХОД".equals(nameIngredient.trim().toUpperCase())){
+                break;
+            }
+            System.out.println("Введите количество:");
+            scanner = new Scanner(System.in);
+            Double amount = 0d;
+            try {
+                amount = scanner.nextDouble();
+            }catch (InputMismatchException exc){
+            }
+            System.out.println("Введите единицу измерения:");
+            scanner = new Scanner(System.in);
+            String nameUnit = scanner.nextLine().trim();
+            ingredientsRecipeDao.addIngredientsToRecipe(nameRecipe,nameIngredient,amount,nameUnit);
+        }
+    }
+
 
     private void deleteRecipe(){
         String str = getStringLine("рецепта");
@@ -133,14 +156,6 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             str = scanner.nextLine().trim();
             break;
-/*
-            try {
-                checkCorrectPin(pin);
-                break;
-            } catch (NullPinException | IncorrectPinException exc) {
-                System.out.println(exc.getMessage());
-            }
-*/
         }
         return str;
     }
