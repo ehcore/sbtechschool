@@ -28,6 +28,7 @@
         <module>lesson19-gof1</module>
         <module>lesson20-jdbc1-sql</module>
         <module>lesson23-springjdbc</module>
+        <module>lesson24-orm-hibernate-springdatajpa</module>
 
     </modules>
 
