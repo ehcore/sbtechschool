@@ -18,7 +18,18 @@ public class IngredientDaoImpl implements IngredientDao{
 
     @Override
     public Ingredient getIngredientsById(Integer id) {
-        return null;
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+        Query<Ingredient> query = session.createQuery("FROM Ingredient WHERE id =:id",Ingredient.class)
+                .setParameter("id", id);
+
+        Ingredient ingredient = query.getSingleResult();
+
+        transaction.commit();
+        session.close();
+        return ingredient;
     }
 
     @Override
@@ -30,6 +41,7 @@ public class IngredientDaoImpl implements IngredientDao{
         Query<Ingredient> query = session.createQuery("FROM Ingredient WHERE name =:name",Ingredient.class)
                 .setParameter("name", name);
 
+        //**будет ошибка, если в результате больше одного рецепта
         Ingredient ingredient = query.getSingleResult();
 
         transaction.commit();
