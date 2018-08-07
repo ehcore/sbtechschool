@@ -63,6 +63,7 @@ public class IngredientsRecipe {
     @Column(name = "amount")
     private Double amount;
 
+    @Column(name = "id_unit")
     private Unit unit;
 
     // private

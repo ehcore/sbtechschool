@@ -1,5 +1,6 @@
 package hibernate1;
 
+import hibernate1.dao.IngredientDaoImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,7 +13,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+//        sessionFactory = new Configuration().configure().buildSessionFactory();
 
 /*
         List<Recipe> recipes = new MainApp().listRecipes();
@@ -21,12 +22,17 @@ public class MainApp {
         }
 */
 
-        new MainApp().addIngredient("Мармелад");
+        sessionFactory = HibernateUtil.getSessionFactory();
 
-        List<Ingredient> ingredients = new MainApp().listIngredients();
+        IngredientDaoImpl ingredientDao = new IngredientDaoImpl(sessionFactory);
+        System.out.println(ingredientDao.getIngredientByName("Слива"));
+
+        //new MainApp().addIngredient("Мармелад");
+
+/*        List<Ingredient> ingredients = new MainApp().listIngredients();
         for(Ingredient ingredient : ingredients){
             System.out.println(ingredient);
-        }
+        }*/
 
 
 
