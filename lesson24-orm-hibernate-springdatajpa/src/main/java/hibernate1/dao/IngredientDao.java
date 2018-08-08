@@ -10,6 +10,6 @@ public interface IngredientDao {
     Ingredient getIngredientByName(String name);
     List<Ingredient> getIngredientsByName(String name);
     List<Ingredient> getAllIngredients();
-    boolean addIngredient(String name);
-    boolean deleteIngredientByName(String name);
+    void addIngredient(String name);
+    void deleteIngredientByName(String name);
 }

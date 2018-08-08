@@ -9,7 +9,7 @@ public interface UnitDao {
 
     List<Unit> getAllUnits();
 
-    boolean addUnit(String name);
+    void addUnit(String name);
 
-    boolean deleteUnitByName(String name);
+    void deleteUnitByName(String name);
 }

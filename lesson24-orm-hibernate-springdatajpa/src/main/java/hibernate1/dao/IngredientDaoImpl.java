@@ -51,21 +51,65 @@ public class IngredientDaoImpl implements IngredientDao{
 
     @Override
     public List<Ingredient> getIngredientsByName(String name) {
-        return null;
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+        Query<Ingredient> query = session.createQuery("FROM Ingredient WHERE name =:name",Ingredient.class)
+                .setParameter("name", name);
+
+
+        List<Ingredient> ingredients = query.list();
+
+        transaction.commit();
+        session.close();
+
+        return ingredients;
     }
 
     @Override
     public List<Ingredient> getAllIngredients() {
-        return null;
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+        Query<Ingredient> query = session.createQuery("FROM Ingredient",Ingredient.class);
+
+        List<Ingredient> ingredients = query.list();
+
+        transaction.commit();
+        session.close();
+
+        return ingredients;
     }
 
     @Override
-    public boolean addIngredient(String name) {
-        return false;
+    public void addIngredient(String name) {
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.setName(name);
+        session.save(ingredient);
+
+        transaction.commit();
+        session.close();
     }
 
     @Override
-    public boolean deleteIngredientByName(String name) {
-        return false;
+    public void deleteIngredientByName(String name) {
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.setName(name);
+        session.delete(ingredient);
+
+        transaction.commit();
+        session.close();
     }
 }

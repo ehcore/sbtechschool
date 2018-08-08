@@ -11,7 +11,7 @@ public interface RecipeDao {
 
     List<Recipe> getAllRecipes();
 
-    boolean addRecipe(String name);
+    void addRecipe(String name);
 
-    boolean deleteRecipeByName(String name);
+    void deleteRecipeByName(String name);
 }
