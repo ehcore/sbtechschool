@@ -1,9 +1,8 @@
 package hibernate1.dao;
 
 
-import hibernate1.model.IngredientsRecipe;
-import hibernate1.model.IngredientsRecipeView;
-import hibernate1.model.Recipe;
+import hibernate1.model.*;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -48,6 +47,27 @@ public class IngredientsRecipeDaoImpl implements IngredientsRecipeDao{
 
     @Override
     public void addIngredientsToRecipe(String recipeName, String ingredientName, Double amount, String unitName) {
+        RecipeDao recipeDao = new RecipeDaoImpl(sessionFactory);
+        Recipe recipe = recipeDao.getRecipeByName(recipeName);
+        IngredientDao ingredientDao = new IngredientDaoImpl(sessionFactory);
+        Ingredient ingredient = ingredientDao.getIngredientByName(ingredientName);
+        UnitDao unitDao = new UnitDaoImpl(sessionFactory);
+        Unit unit = unitDao.getUnitByName(unitName);
+
+        Session session = this.sessionFactory.openSession();
+        Transaction transaction = null;
+
+        transaction = session.beginTransaction();
+
+        IngredientsRecipe ingredientsRecipe =
+                new IngredientsRecipe(recipe,ingredient,amount,unit);
+
+        session.save(ingredientsRecipe);
+
+        transaction.commit();
+        session.close();
+
+//id_recipes int(10), id_ingredients int(10), amount decimal(8,3), id_unit int(10)
 
     }
 }

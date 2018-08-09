@@ -72,12 +72,13 @@ public class IngredientsRecipe {
     private Double amount;
 
     //@Column(name = "id_unit")
-    @OneToOne
-    @JoinColumn(name = "id_unit" , insertable = false, updatable = false)
-    //private Integer unitId;
+//    @ManyToOne
+//    @JoinColumn(name = "id_unit" , insertable = false, updatable = false)
+    @Transient
     private Unit unit;
 
-    @Transient
+    //@Transient
+    @Column(name = "id_unit")
     private Integer unitId;
     //private Unit unit;
 
