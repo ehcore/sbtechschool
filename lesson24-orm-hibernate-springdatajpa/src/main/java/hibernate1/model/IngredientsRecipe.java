@@ -4,6 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+/*@NamedQueries(
+        {@NamedQuery(name="IngredientsRecipe.getIngredientsRecipeViewByNameRecipe",
+                query = "SELECT temp.name AS name_ingredient, temp.amount, temp.id_unit,  recipes.units.name AS name_unit FROM " +
+                        "(SELECT recipes.ingredients_recipes.id_unit , recipes.ingredients.name, recipes.ingredients_recipes.amount " +
+                        "FROM recipes.ingredients_recipes JOIN recipes.ingredients ON recipes.ingredients_recipes.id_ingredients = recipes.ingredients.id " +
+                        "WHERE recipes.ingredients_recipes.id_recipes=?) temp JOIN recipes.units ON temp.id_unit = recipes.units.id")
+        }
+)*/
 @Table(name = "recipes.ingredients_recipes")
 public class IngredientsRecipe {
 /*
@@ -63,10 +71,19 @@ public class IngredientsRecipe {
     @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "id_unit")
+    //@Column(name = "id_unit")
+    @OneToOne
+    @JoinColumn(name = "id_unit" , insertable = false, updatable = false)
+    //private Integer unitId;
     private Unit unit;
 
-    // private
+    @Transient
+    private Integer unitId;
+    //private Unit unit;
+
+
+    public IngredientsRecipe() {
+    }
 
     public IngredientsRecipe(Recipe recipe,
                              Ingredient ingredient,
@@ -75,6 +92,7 @@ public class IngredientsRecipe {
         this.amount = amount;
         this.recipe = recipe;
         this.ingredient = ingredient;
+        this.unitId = unit.getId();
         this.unit = unit;
 
         this.id.recipeId = recipe.getId();
@@ -82,8 +100,6 @@ public class IngredientsRecipe {
 
 
     }
-
-
 
 
     @Override

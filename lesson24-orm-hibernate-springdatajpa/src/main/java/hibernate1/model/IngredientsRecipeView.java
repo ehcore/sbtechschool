@@ -1,12 +1,17 @@
 package hibernate1.model;
 
 
+import java.math.BigDecimal;
+
 public class IngredientsRecipeView {
     private String ingredient;
-    private Double amount;
+    private BigDecimal amount;
     private String unit;
 
-    public IngredientsRecipeView(String ingredient, Double amount, String unit) {
+    public IngredientsRecipeView() {
+    }
+
+    public IngredientsRecipeView(String ingredient, BigDecimal amount, String unit) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.unit = unit;
@@ -20,11 +25,11 @@ public class IngredientsRecipeView {
         this.ingredient = ingredient;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

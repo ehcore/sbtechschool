@@ -24,6 +24,6 @@
         <mapping class="hibernate1.model.Recipe"></mapping>
         <mapping class="hibernate1.model.Ingredient"></mapping>
         <mapping class="hibernate1.model.Unit"></mapping>
-        <!--<mapping class="hibernate1.model.IngredientsRecipe"></mapping>-->
+        <mapping class="hibernate1.model.IngredientsRecipe"></mapping>
     </session-factory>
 </hibernate-configuration>

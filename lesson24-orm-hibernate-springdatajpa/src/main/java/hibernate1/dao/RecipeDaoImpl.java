@@ -39,7 +39,7 @@ public class RecipeDaoImpl implements RecipeDao{
         transaction = session.beginTransaction();
 
         Query<Recipe> query = session.createNamedQuery("Recipe.findSuggection",Recipe.class);
-        query.setParameter("name",name);
+        query.setParameter("name",name + "%");
 
         List<Recipe> recipes = query.list();
 

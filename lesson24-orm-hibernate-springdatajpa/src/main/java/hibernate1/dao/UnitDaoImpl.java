@@ -27,9 +27,10 @@ public class UnitDaoImpl implements UnitDao{
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Unit> query = builder.createQuery(Unit.class);
         Root<Unit> root = query.from(Unit.class);
-        Unit unit = query
-                .select(root)
-                .where(builder.equal(root.get(Unit_.name),name));
+        query.select(root)
+             .where(builder.equal(root.get("name").as(String.class),name));
+
+        Unit unit = session.createQuery(query).getSingleResult();
 
         transaction.commit();
         session.close();

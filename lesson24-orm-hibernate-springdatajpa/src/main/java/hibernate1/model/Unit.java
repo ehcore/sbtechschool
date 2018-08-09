@@ -2,6 +2,7 @@ package hibernate1.model;
 
 import javax.persistence.*;
 
+
 @Entity
 @Table(name = "recipes.units")
 public class Unit {

@@ -3,6 +3,13 @@ package hibernate1.model;
 import javax.persistence.*;
 
 @Entity
+@NamedQueries(
+        {@NamedQuery(name="Recipe.findAll",
+                    query = "from Recipe"),
+        @NamedQuery(name = "Recipe.findSuggection",
+                query = "from Recipe c where c.name like :name"),
+        }
+                    )
 @Table(name = "recipes.recipes")
 public class Recipe {
     @Id
